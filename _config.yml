@@ -1,0 +1,17 @@
+# Site settings
+title: Michael Cranston
+email: cranston.michaelrichard@gmail.com
+author: Michael Cranston
+description: "Thoughts on front-end development."
+baseurl: ""
+url: "http://mcranston18.github.io"
+google_analytics:
+animated: false
+show_related_posts: false
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+paginate: 3
+sass:
+  compressed: true
