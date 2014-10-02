@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Maintainble Angular - Structuring Controllers &#8211; Michael Cranston</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Proposal on separating code within Angular controllers.">
+    <meta name="author" content="Michael Cranston">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://mcranston18.github.io/2014/06/08/maintainable-angular-strucutre-in-angular-controllers/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Maintainble Angular - Structuring Controllers">
+    <meta property="og:description" content="Thoughts on front-end development.">
+    <meta property="og:url" content="http://mcranston18.github.io/2014/06/08/maintainable-angular-strucutre-in-angular-controllers/">
+    <meta property="og:site_name" content="Michael Cranston">
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://mcranston18.github.io" class="site-title">Michael Cranston</a>
+      <nav class="site-nav right">
+        <a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+      <p><small>Thoughts on front-end development.</small></p>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1 class="py2">Maintainble Angular - Structuring Controllers</h1>
+  <span class="post-meta">Jun 8, 2014</span><br>
+  
+  <span class="post-meta small">3 minute read</span>
+</div>
+
+<article class="post-content">
+  <p><em>Your controllers should be thin.</em>  This is a common refrain when discussing maintainable Angular code. It is true but it can be more difficult to implement in practice. My proposal is to use simple comments to separate the lines of code in your controller:</p>
+
+<ol>
+  <li>Initialization values
+    <ul>
+      <li>assigning your variables and items on <code>$scope</code></li>
+    </ul>
+  </li>
+  <li>Private methods that are only used in the controller</li>
+  <li>Methods that are used in the view</li>
+  <li>CRUD</li>
+  <li>$watches</li>
+  <li>Getting data for the view
+    <ul>
+      <li>call a <code>get</code> request to populate the view with data on initialization</li>
+    </ul>
+  </li>
+  <li>(hacks)
+    <ul>
+      <li>hacks happen. Inspired by <a href="http://csswizardry.com/2013/04/shame-css/">CSS Wizardy’s shame.css</a>, labeling your hacks as such goes a long in maintainability.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Let’s imagine a photo editing application, and the route at <code>/photo/123/edit</code>. This page would need to do the following:</p>
+
+<ol>
+  <li>Fetch the photo from the API</li>
+  <li>Allow posting to the API with updates to the photo</li>
+  <li>Allow the user to reset the form.</li>
+  <li>$watch something</li>
+</ol>
+
+<p>The controller quickly becomes non-trivial. If we begin to need to add extra functionality (i.e. the ability to upload a watermark, the ability to offer extra editing features to premium users), then the controller could become even larger.</p>
+
+<p>I would imagine the controller looking something like this:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app.photo&#39;</span><span class="p">)</span>
+
+<span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;EditPhotoCtrl&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">PhotoService</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="cm">/*</span>
+<span class="cm">   * Init Values</span>
+<span class="cm">   */</span>
+
+  <span class="kd">var</span> <span class="nx">ctrl</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="nx">$scope</span><span class="p">.</span><span class="nx">something</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">;</span>
+  <span class="nx">$scope</span><span class="p">.</span><span class="nx">isPremiumSubscriber</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+  <span class="cm">/*</span>
+<span class="cm">   * Private Methods</span>
+<span class="cm">   */</span>
+
+  <span class="nx">ctrl</span><span class="p">.</span><span class="nx">_resizePhoto</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+  
+  <span class="cm">/*</span>
+<span class="cm">   * Methods Used in View</span>
+<span class="cm">   */</span>
+  
+  <span class="nx">ctrl</span><span class="p">.</span><span class="nx">showSomething</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+  <span class="nx">ctrl</span><span class="p">.</span><span class="nx">resetForm</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+
+  <span class="cm">/*</span>
+<span class="cm">   * CRUD</span>
+<span class="cm">   */</span>
+
+  <span class="nx">ctrl</span><span class="p">.</span><span class="nx">getPhoto</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">photo</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">error</span> <span class="o">=</span> <span class="nx">error</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">invoke</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">photoId</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">PhotoService</span><span class="p">.</span><span class="nx">getPhoto</span><span class="p">(</span><span class="nx">photoId</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">success</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+   
+  <span class="nx">ctrl</span><span class="p">.</span><span class="nx">updatePhoto</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">photo</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="nx">$location</span><span class="p">.</span><span class="nx">path</span><span class="p">(</span><span class="s1">&#39;/photo/&#39;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">photo</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">},</span>
+    
+    <span class="nx">createFormData</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// this func would create and return HTML5 formdata for multi-part upload</span>
+      <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">invoke</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">photo</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">formData</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createFormData</span><span class="p">(</span><span class="nx">photo</span><span class="p">);</span>
+
+      <span class="nx">PhotoService</span><span class="p">.</span><span class="nx">updatePhoto</span><span class="p">(</span><span class="nx">formData</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">success</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+  
+  <span class="cm">/*</span>
+<span class="cm">   * Get Data for View</span>
+<span class="cm">   */</span>
+  
+  <span class="nx">ctrl</span><span class="p">.</span><span class="nx">getPhoto</span><span class="p">.</span><span class="nx">invoke</span><span class="p">();</span>
+
+  <span class="cm">/*</span>
+<span class="cm">   * Watches</span>
+<span class="cm">   */</span>
+  
+  <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;something&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+
+<span class="p">});</span></code></pre></div>
+
+
+</article>
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+
+</footer>
+
+
+
+</body>
+</html>
