@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Naming Conventions and Folder Structure in an AngularJS App &#8211; Michael Cranston</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Proposal for naming files and folder structure in a large Angular app.">
+    <meta name="author" content="Michael Cranston">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="http://mcranston18.github.io/2014/06/08/naming-conventions/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Naming Conventions and Folder Structure in an AngularJS App">
+    <meta property="og:description" content="Thoughts on front-end development.">
+    <meta property="og:url" content="http://mcranston18.github.io/2014/06/08/naming-conventions/">
+    <meta property="og:site_name" content="Michael Cranston">
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://mcranston18.github.io" class="site-title">Michael Cranston</a>
+      <nav class="site-nav right">
+        <a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+      <p><small>Thoughts on front-end development.</small></p>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1 class="py2">Naming Conventions and Folder Structure in an AngularJS App</h1>
+  <span class="post-meta">Jun 8, 2014</span><br>
+  
+  <span class="post-meta small">1 minute read</span>
+</div>
+
+<article class="post-content">
+  <p>It’s considered <a href="https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1">best practice</a> to organize your Angular app as modules, rather than directories. </p>
+
+<p>With help from a co-worker <a href="https://github.com/marcgibbons">Marc Gibbons</a>, we used the </p>
+
+<ul>
+  <li>Inside of a module, there should be an <code>index.html</code> and a <code>module.js</code> file.</li>
+  <li>Controllers are append with <code>.ctrl.js</code>, i.e. <code>photos.ctrl.js</code></li>
+  <li>Services are appended with <code>.services.js</code>, i.e. <code>photos.service.js</code></li>
+  <li>Directive are appended with <code>.directives.js</code>, i.e. <code>photo-list.directive.js</code></li>
+  <li>File names are separated with a hyphen, not camelcase.</li>
+  <li>All Javascript uses camelcase</li>
+</ul>
+
+<p>If we imagine a structure for 500px’s <a href="https://500px.com/flow">Flow</a> and <a href="https://500px.com/photo/85027657/flower-queen-by-darya-chacheva?from=user">Photo</a> views, it might look something like:<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="mi">500</span><span class="nx">px</span><span class="o">/</span>
+
+  <span class="nx">app</span><span class="o">/</span>
+
+    <span class="nx">flow</span><span class="o">/</span>
+      <span class="nx">index</span><span class="p">.</span><span class="nx">jade</span>
+      <span class="nx">module</span><span class="p">.</span><span class="nx">js</span>
+      <span class="nx">flow</span><span class="p">.</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">js</span>
+      <span class="nx">flow</span><span class="o">-</span><span class="nx">modal</span><span class="p">.</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">js</span>
+      <span class="nx">flow</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">js</span>
+      <span class="nx">modal</span><span class="o">-</span><span class="nx">view</span><span class="p">.</span><span class="nx">jade</span>
+
+    <span class="nx">photo</span><span class="o">/</span>
+      <span class="nx">index</span><span class="p">.</span><span class="nx">jade</span>
+      <span class="nx">module</span><span class="p">.</span><span class="nx">js</span>
+      <span class="nx">photo</span><span class="p">.</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">js</span>
+      <span class="nx">photo</span><span class="o">-</span><span class="nx">detail</span><span class="p">.</span><span class="nx">jade</span>
+      <span class="nx">photo</span><span class="o">-</span><span class="nx">edit</span><span class="p">.</span><span class="nx">jade</span>
+      <span class="nx">photo</span><span class="o">-</span><span class="nx">edit</span><span class="p">.</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">js</span>
+      <span class="nx">photo</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">jss</span>
+  
+  <span class="nx">common</span><span class="o">/</span>
+
+    <span class="nx">directives</span><span class="o">/</span>
+      <span class="nx">modal</span><span class="o">/</span>
+        <span class="nx">index</span><span class="p">.</span><span class="nx">jade</span>
+        <span class="nx">module</span><span class="p">.</span><span class="nx">js</span></code></pre></div>
+
+<p>Notes:</p>
+
+<ul>
+  <li>I would keep modal as its own abstract directive. It would be up to the view to populate it.</li>
+  <li>They use a masonry plugin for the <code>/focus</code> route, so I would likely create something like a <code>flow-list.directive.js</code> that would handle grabbing a list of photos, and arranging them.</li>
+</ul>
+
+<p>Further reading:</p>
+
+<ul>
+  <li><a href="http://briantford.com/blog/huuuuuge-angular-apps">Building Huuuuuge Apps with AngularJS</a></li>
+  <li><a href="http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript">Code Organization in Large AngularJS and JavaScript Applications</a></li>
+  <li><a href="http://tech-blog.maddyzone.com/javascript/code-organization-angularjs">Code organization in angularjs</a></li>
+</ul>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>This is just a crude example of how I might imagine they would structure two modules. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+</article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'frontendthoughts'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<div style='text-align: center;'>
+  <small>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </small>
+  
+</div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+
+</footer>
+
+
+
+</body>
+</html>
