@@ -1,9 +1,10 @@
 ---
 layout:     post
 title:      Maintainble Angular - Structuring Controllers
-date:       2014-06-08 11:21:29
+date:       2014-09-27
 summary:    Proposal on separating code within Angular controllers.
 comments:   true
+categories: angularjs controller organization best practices
 ---
 
 *Your controllers should be thin.*  This is a common refrain when discussing maintainable Angular code. It is true but it can be more difficult to implement in practice. My proposal is to use simple comments to separate the lines of code in your controller:

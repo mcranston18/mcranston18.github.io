@@ -1,9 +1,10 @@
 ---
 layout:     post
 title:      Naming Conventions and Folder Structure in an AngularJS App
-date:       2014-06-08 11:21:29
+date:       2014-10-03
 summary:    Proposal for naming files and folder structure in a large Angular app.
 comments:   true
+categories: angularjs naming convetions best practices code organization
 ---
 
 It's considered [best practice](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1) to organize your Angular app as modules, rather than directories. 
