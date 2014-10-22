@@ -7,10 +7,36 @@
     <atom:link href="http://mcranston18.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Naming Conventions and Folder Structure in an AngularJS App</title>
-        <description>&lt;p&gt;It’s considered &lt;a href=&quot;https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1&quot;&gt;best practice&lt;/a&gt; to organize your Angular app as modules, rather than directories. &lt;/p&gt;
+        <title>SublimeText - Conditionally Removing Trailing Spaces</title>
+        <description>&lt;p&gt;Trailing white spaces are &lt;a href=&quot;http://programmers.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal&quot;&gt;annoying&lt;/a&gt;. Forunately, SublimeText automates this for us by simpling adding this options to our Sublime config:&lt;/p&gt;
 
-&lt;p&gt;With help from a co-worker &lt;a href=&quot;https://github.com/marcgibbons&quot;&gt;Marc Gibbons&lt;/a&gt;, we used the &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;trim_trailing_white_space_on_save&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Except we are screwed if we use a templating language. Because whitespace will be trimmed in nested element which means you won’t have a space between words. (Without littering your Jade with .)&lt;/p&gt;
+
+&lt;p&gt;Thanks to StackOverflow user &lt;a href=&quot;http://stackoverflow.com/questions/26510798/trailing-white-spaces-only-for-javascript-files-in-sublime-text/26512398#26512398&quot;&gt;myk-willis&lt;/a&gt;, there’s a solution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Add &lt;code&gt;trim_trailing_white_space_on_save&lt;/code&gt; to your Sublime user config (presuming you want this as your default).&lt;/li&gt;
+  &lt;li&gt;Open a file-type where you do not want non-breaking spaces (i.e. Jade).&lt;/li&gt;
+  &lt;li&gt;Go to &lt;code&gt;Preferences &amp;gt; Settings-More &amp;gt; Syntax Specific&lt;/code&gt; and allow trailing spaces for that specific syntax:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;&amp;quot;trim_trailing_white_space_on_save&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Fri, 03 Oct 2014 00:00:00 -0400</pubDate>
+        <link>http://mcranston18.github.io/sublime-trailing/</link>
+        <guid isPermaLink="true">http://mcranston18.github.io/sublime-trailing/</guid>
+      </item>
+    
+      <item>
+        <title>Naming Conventions and Folder Structure in an AngularJS App</title>
+        <description>&lt;p&gt;It’s considered &lt;a href=&quot;https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1&quot;&gt;best practice&lt;/a&gt; to organize your Angular app as modules, rather than directories.&lt;/p&gt;
+
+&lt;p&gt;With help from a co-worker &lt;a href=&quot;https://github.com/marcgibbons&quot;&gt;Marc Gibbons&lt;/a&gt;, we used the&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Inside of a module, there should be an &lt;code&gt;index.html&lt;/code&gt; and a &lt;code&gt;module.js&lt;/code&gt; file.&lt;/li&gt;
@@ -43,7 +69,7 @@
       &lt;span class=&quot;nx&quot;&gt;photo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;edit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;jade&lt;/span&gt;
       &lt;span class=&quot;nx&quot;&gt;photo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;edit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ctrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;js&lt;/span&gt;
       &lt;span class=&quot;nx&quot;&gt;photo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;jss&lt;/span&gt;
-  
+
   &lt;span class=&quot;nx&quot;&gt;common&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
 
     &lt;span class=&quot;nx&quot;&gt;directives&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;

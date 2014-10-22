@@ -7,9 +7,9 @@ comments:   true
 categories: angularjs naming convetions best practices code organization
 ---
 
-It's considered [best practice](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1) to organize your Angular app as modules, rather than directories. 
+It's considered [best practice](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1) to organize your Angular app as modules, rather than directories.
 
-With help from a co-worker [Marc Gibbons](https://github.com/marcgibbons), we used the 
+With help from a co-worker [Marc Gibbons](https://github.com/marcgibbons), we used the
 
 * Inside of a module, there should be an `index.html` and a `module.js` file.
 * Controllers are append with `.ctrl.js`, i.e. `photos.ctrl.js`
@@ -42,7 +42,7 @@ If we imagine a structure for 500px's [Flow](https://500px.com/flow) and [Photo]
       photo-edit.jade
       photo-edit.ctrl.js
       photo.service.jss
-  
+
   common/
 
     directives/
