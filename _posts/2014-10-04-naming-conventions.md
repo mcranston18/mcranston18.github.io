@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Naming Conventions and Folder Structure in an AngularJS App
-date:       2014-10-03
+date:       2014-10-04
 summary:    Proposal for naming files and folder structure in a large Angular app.
 comments:   true
 categories: angularjs naming convetions best practices code organization

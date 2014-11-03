@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Gulp - Fix to socket hang up using httpProxy &#8211; Michael Cranston</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="Y-w8dNKFzmQ82mqiiXbeiZrUTyGSwJ3uV94hrI1jf-o" />
+    <meta name="description" content="Fix to Gulp crashing when using httpProxy">
+    <meta name="author" content="Michael Cranston">
+    <meta name="keywords" content="gulp">
+    <link rel="canonical" href="http://mcranston18.github.io/gulp-sever/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Gulp - Fix to socket hang up using httpProxy">
+    <meta property="og:description" content="Thoughts on front-end development.">
+    <meta property="og:url" content="http://mcranston18.github.io/gulp-sever/">
+    <meta property="og:site_name" content="Michael Cranston">
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://mcranston18.github.io" class="site-title">Michael Cranston</a>
+      <nav class="site-nav right">
+        <a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+      <p><small>Thoughts on front-end development.</small></p>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+
+
+<div class="post-header mb2">
+  <h1 class="py2">Gulp - Fix to socket hang up using httpProxy</h1>
+  <span class="post-meta">Nov 3, 2014</span><br>
+  
+  <span class="post-meta small">1 minute read</span>
+</div>
+
+<article class="post-content">
+  <p>If you use the <a href="http://yeoman.io">Yeoman</a> Gulp generator, you might be getting an incredibly frustrating socket hang us anytime an HTTP request fails or is interrupted.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">Error</span><span class="o">:</span> <span class="nx">socket</span> <span class="nx">hang</span> <span class="nx">up</span>
+    <span class="nx">at</span> <span class="nx">createHangUpError</span> <span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">1472</span><span class="o">:</span><span class="mi">15</span><span class="p">)</span>
+    <span class="nx">at</span> <span class="nx">CleartextStream</span><span class="p">.</span><span class="nx">socketCloseListener</span> <span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">1522</span><span class="o">:</span><span class="mi">23</span><span class="p">)</span>
+    <span class="nx">at</span> <span class="nx">CleartextStream</span><span class="p">.</span><span class="nx">emit</span> <span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">95</span><span class="o">:</span><span class="mi">17</span><span class="p">)</span>
+    <span class="nx">at</span> <span class="nx">tls</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">693</span><span class="o">:</span><span class="mi">10</span>
+    <span class="nx">at</span> <span class="nx">process</span><span class="p">.</span><span class="nx">_tickCallback</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">419</span><span class="o">:</span><span class="mi">13</span><span class="p">)</span></code></pre></div>
+
+<p>Adding simple error handling to your httpProxy will disallow the hangup and keep your sanity in check:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="nx">httpProxy</span><span class="p">.</span><span class="nx">createProxyServer</span><span class="p">({</span>
+  <span class="nx">target</span><span class="o">:</span> <span class="nx">proxyTarget</span>
+<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">))</span>
+<span class="p">});</span></code></pre></div>
+
+
+</article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'frontendthoughts'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<div style='text-align: center;'>
+  <small>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </small>
+  
+</div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+
+</footer>
+
+
+
+</body>
+</html>

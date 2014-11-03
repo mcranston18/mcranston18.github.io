@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      SublimeText - Conditionally Removing Trailing Spaces
-date:       2014-10-03
+date:       2014-10-22
 summary:    A fix so Sublime does not remove trailing white spaces in your templating engine.
 comments:   true
 categories: sublime text
