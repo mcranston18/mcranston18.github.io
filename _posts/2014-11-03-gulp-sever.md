@@ -7,7 +7,7 @@ comments:   true
 categories: gulp
 ---
 
-If you use the [Yeoman](http://yeoman.io) Gulp generator, you might be getting an incredibly frustrating socket hang us anytime an HTTP request fails or is interrupted.
+If you use the [Yeoman](http://yeoman.io) Gulp generator, you might be getting an incredibly frustrating socket hang up anytime an HTTP request fails or is interrupted.
 
 {% highlight javascript %}
 Error: socket hang up
