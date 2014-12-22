@@ -7,6 +7,29 @@
     <atom:link href="http://mcranston18.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Angular and SEO - What Doesn&#39;t Work (Pt. I)</title>
+        <description>&lt;p&gt;In May 2014, &lt;a href=&quot;http://googlewebmastercentral.blogspot.ca/2014/05/understanding-web-pages-better.html&quot;&gt;Google announced its crawler would execute javascript&lt;/a&gt;. Previously, Googlebot and other crawlers could not execute javascript which means any single page app (regardless of framework) would not get indexed.&lt;/p&gt;
+
+&lt;p&gt;The solution was to have your server detect for crawlers, and then serve up a rendered version of your page. If your backend was written in NodeJS, you could somewhat painlessly use &lt;a href=&quot;http://phantomjs.org/&quot;&gt;PhantomJS&lt;/a&gt;. If you didn’t have a Node backend, it was a bigger pain. At &lt;a href=&quot;https://flixel.com&quot;&gt;Flixel&lt;/a&gt;, we have a Django backend which means using the Django Casper module. However, our server instances didn’t support using Node and Django on the same instance meaning we would have to set up another instance to even run this extra module.&lt;/p&gt;
+
+&lt;p&gt;The effort mentioned above is do-able but with Googlebot executing JS, we opted not to bother with a server side solution. Considering the opaque nature of indexing, we waited a while to see results.&lt;/p&gt;
+
+&lt;p&gt;We spent some time making the app more SEO-friendly (i.e. meta description, etc.) and still saw no results.&lt;/p&gt;
+
+&lt;p&gt;I e-mailed the author of &lt;a href=&quot;https://weluse.de/blog/angularjs-seo-finally-a-piece-of-cake.html&quot;&gt;AngularJS &amp;amp; SEO - finally a piece of cake&lt;/a&gt; to see what advice he had. His experience was similar to mine, after a month or two of waiting, no pages were being indexed. From the author:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;That’s also the reason I haven’t written my actually planned follow-up post to this point. When I wrote the piece you read, we hadn’t any indexed, but a good amount of crawled pages. We’ve been waiting for a good month i published the write-up, trying to make some difference with the tools available in google webmaster tools; manually adding urls, recrawling, url-parameter stuff etc. At the end there hasn’t been a single page in the index crawled by the ‘js-feature’!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Perhaps things have changed since May, but it seems from two people’s experience, relying on Googlebot to execute your javascript is not a good if SEO is a concern.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 15 Dec 2014 00:00:00 -0500</pubDate>
+        <link>http://mcranston18.github.io/angular-seo/</link>
+        <guid isPermaLink="true">http://mcranston18.github.io/angular-seo/</guid>
+      </item>
+    
+      <item>
         <title>Gulp - Getting the return value from one task to another</title>
         <description>&lt;p&gt;I am new to &lt;a href=&quot;http://gulpjs.com/&quot;&gt;GulpJS&lt;/a&gt; and was tasked with doing something fairly simple: append a git hash to index.html.&lt;/p&gt;
 

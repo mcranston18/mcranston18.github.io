@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular and SEO - What Doesn't Work (Pt. I) &#8211; Michael Cranston</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="Y-w8dNKFzmQ82mqiiXbeiZrUTyGSwJ3uV94hrI1jf-o" />
+    <meta name="description" content="As of May 2014, Googlebot said it executes javascript but is it actually indexing single page apps?">
+    <meta name="author" content="Michael Cranston">
+    <meta name="keywords" content="seo,, angular">
+    <link rel="canonical" href="http://mcranston18.github.io/angular-seo/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Angular and SEO - What Doesn't Work (Pt. I)">
+    <meta property="og:description" content="Thoughts on front-end development.">
+    <meta property="og:url" content="http://mcranston18.github.io/angular-seo/">
+    <meta property="og:site_name" content="Michael Cranston">
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://mcranston18.github.io" class="site-title">Michael Cranston</a>
+      <nav class="site-nav right">
+        <a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+      <p><small>Thoughts on front-end development.</small></p>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1 class="py2">Angular and SEO - What Doesn't Work (Pt. I)</h1>
+  <span class="post-meta">Dec 15, 2014</span><br>
+  
+  <span class="post-meta small">1 minute read</span>
+</div>
+
+<article class="post-content">
+  <p>In May 2014, <a href="http://googlewebmastercentral.blogspot.ca/2014/05/understanding-web-pages-better.html">Google announced its crawler would execute javascript</a>. Previously, Googlebot and other crawlers could not execute javascript which means any single page app (regardless of framework) would not get indexed.</p>
+
+<p>The solution was to have your server detect for crawlers, and then serve up a rendered version of your page. If your backend was written in NodeJS, you could somewhat painlessly use <a href="http://phantomjs.org/">PhantomJS</a>. If you didn’t have a Node backend, it was a bigger pain. At <a href="https://flixel.com">Flixel</a>, we have a Django backend which means using the Django Casper module. However, our server instances didn’t support using Node and Django on the same instance meaning we would have to set up another instance to even run this extra module.</p>
+
+<p>The effort mentioned above is do-able but with Googlebot executing JS, we opted not to bother with a server side solution. Considering the opaque nature of indexing, we waited a while to see results.</p>
+
+<p>We spent some time making the app more SEO-friendly (i.e. meta description, etc.) and still saw no results.</p>
+
+<p>I e-mailed the author of <a href="https://weluse.de/blog/angularjs-seo-finally-a-piece-of-cake.html">AngularJS &amp; SEO - finally a piece of cake</a> to see what advice he had. His experience was similar to mine, after a month or two of waiting, no pages were being indexed. From the author:</p>
+
+<blockquote>
+  <p>That’s also the reason I haven’t written my actually planned follow-up post to this point. When I wrote the piece you read, we hadn’t any indexed, but a good amount of crawled pages. We’ve been waiting for a good month i published the write-up, trying to make some difference with the tools available in google webmaster tools; manually adding urls, recrawling, url-parameter stuff etc. At the end there hasn’t been a single page in the index crawled by the ‘js-feature’!</p>
+</blockquote>
+
+<p>Perhaps things have changed since May, but it seems from two people’s experience, relying on Googlebot to execute your javascript is not a good if SEO is a concern.</p>
+
+</article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'frontendthoughts'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<div style='text-align: center;'>
+  <small>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </small>
+  
+</div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+
+</footer>
+
+
+
+</body>
+</html>
