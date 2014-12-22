@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Angular and SEO - What Doesn't Work (Pt. I)
+title:      Angular and SEO - What Didn't Work (Pt. I)
 date:       2014-12-15
 summary:    As of May 2014, Googlebot said it executes javascript but is it actually indexing single page apps?
 comments:   true

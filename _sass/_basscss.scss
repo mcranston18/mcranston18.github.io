@@ -60,7 +60,7 @@ small, .small, .f5 {
 
 @media screen and (min-width: 48em) {
   .h1 {
-    font-size: 4rem;
+    // font-size: 4rem;
     line-height: 5rem;
   }
 
@@ -326,8 +326,8 @@ strong, .bold {
 }
 
 .py2 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  // padding-top: 1rem;
+  // padding-bottom: 1rem;
 }
 
 .p3 {
@@ -389,7 +389,7 @@ strong, .bold {
 }
 @media screen and (min-width: 64em) {
   .p-responsive {
-    padding: 4rem;
+    // padding: 4rem;
   }
 
   .px-responsive {

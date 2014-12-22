@@ -50,7 +50,6 @@ small, .small, .f5 {
 
 @media screen and (min-width: 48em) {
   .h1 {
-    font-size: 4rem;
     line-height: 5rem; }
 
   .h2 {
@@ -248,10 +247,6 @@ strong, .bold {
   padding-right: 2rem;
   padding-left: 2rem; }
 
-.py2 {
-  padding-top: 2rem;
-  padding-bottom: 2rem; }
-
 .p3 {
   padding: 3rem; }
 
@@ -297,9 +292,6 @@ strong, .bold {
     padding-top: 3rem;
     padding-bottom: 3rem; } }
 @media screen and (min-width: 64em) {
-  .p-responsive {
-    padding: 4rem; }
-
   .px-responsive {
     padding-right: 4rem;
     padding-left: 4rem; }
@@ -912,7 +904,7 @@ h6,
 @media screen and (min-width: 64em) {
   .h1,
   h1 {
-    font-size: 4.498rem; }
+    font-size: 3.6rem; }
 
   .h2,
   h2 {

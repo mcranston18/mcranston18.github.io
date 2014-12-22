@@ -7,7 +7,42 @@
     <atom:link href="http://mcranston18.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Angular and SEO - What Doesn&#39;t Work (Pt. I)</title>
+        <title>Angular and SEO - What Didn&#39;t Work (Pt. 2)</title>
+        <description>&lt;p&gt;After &lt;a href=&quot;/angular-seo-pt1/&quot;&gt;realizing that Googlebot was not actually indexing our single page app&lt;/a&gt;, we decided to try to whip up a very quick server side solution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;use &lt;a href=&quot;https://github.com/cburgdorf/grunt-html-snapshot&quot;&gt;grunt-html-snapshot&lt;/a&gt; to generate static pages that are put in a &lt;code&gt;/static/snapshots/&lt;/code&gt; folder in django&lt;/li&gt;
+  &lt;li&gt;nginx detects for a crawler,&lt;/li&gt;
+  &lt;li&gt;if detected, maintain the same file path, but preprend with the &lt;code&gt;/static/snapshots/&lt;/code&gt; route
+    &lt;ul&gt;
+      &lt;li&gt;i.e. example.com/about -&amp;gt; example.com/static/snapshots/about&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This was a bad solution for a variety of reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It’s not dynamic. If the crawler hits a user profile or a dynamic page, we would not serve up the correct content.&lt;/li&gt;
+  &lt;li&gt;Google doesn’t like it when you serve the crawler something different from your sites real content.&lt;/li&gt;
+  &lt;li&gt;We were still sending a &lt;a href=&quot;https://support.google.com/webmasters/answer/181708&quot;&gt;soft 404&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;We would have to generate new snapshots on each deploy and add/substract/edit new routes anytime something changed.&lt;/li&gt;
+  &lt;li&gt;Even in their &lt;a href=&quot;https://developers.google.com/webmasters/ajax-crawling/docs/faq#redirects&quot;&gt;official docs&lt;/a&gt;, Google doesn’t sound all that thrilled about using redirects for SEO.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To recap, attempts at SEO:&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;1. Relying on Googelbot executing JS&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;2. Using a 302 redirect.&lt;/del&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 22 Dec 2014 00:00:00 -0500</pubDate>
+        <link>http://mcranston18.github.io/angular-seo-pt2/</link>
+        <guid isPermaLink="true">http://mcranston18.github.io/angular-seo-pt2/</guid>
+      </item>
+    
+      <item>
+        <title>Angular and SEO - What Didn&#39;t Work (Pt. I)</title>
         <description>&lt;p&gt;In May 2014, &lt;a href=&quot;http://googlewebmastercentral.blogspot.ca/2014/05/understanding-web-pages-better.html&quot;&gt;Google announced its crawler would execute javascript&lt;/a&gt;. Previously, Googlebot and other crawlers could not execute javascript which means any single page app (regardless of framework) would not get indexed.&lt;/p&gt;
 
 &lt;p&gt;The solution was to have your server detect for crawlers, and then serve up a rendered version of your page. If your backend was written in NodeJS, you could somewhat painlessly use &lt;a href=&quot;http://phantomjs.org/&quot;&gt;PhantomJS&lt;/a&gt;. If you didn’t have a Node backend, it was a bigger pain. At &lt;a href=&quot;https://flixel.com&quot;&gt;Flixel&lt;/a&gt;, we have a Django backend which means using the Django Casper module. However, our server instances didn’t support using Node and Django on the same instance meaning we would have to set up another instance to even run this extra module.&lt;/p&gt;
@@ -25,8 +60,8 @@
 &lt;p&gt;Perhaps things have changed since May, but it seems from two people’s experience, relying on Googlebot to execute your javascript is not a good if SEO is a concern.&lt;/p&gt;
 </description>
         <pubDate>Mon, 15 Dec 2014 00:00:00 -0500</pubDate>
-        <link>http://mcranston18.github.io/angular-seo/</link>
-        <guid isPermaLink="true">http://mcranston18.github.io/angular-seo/</guid>
+        <link>http://mcranston18.github.io/angular-seo-pt1/</link>
+        <guid isPermaLink="true">http://mcranston18.github.io/angular-seo-pt1/</guid>
       </item>
     
       <item>

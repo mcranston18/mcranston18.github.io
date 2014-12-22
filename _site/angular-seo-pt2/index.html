@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SublimeText - Conditionally Removing Trailing Spaces &#8211; Michael Cranston</title>
+    <title>Angular and SEO - What Didn't Work (Pt. 2) &#8211; Michael Cranston</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="Y-w8dNKFzmQ82mqiiXbeiZrUTyGSwJ3uV94hrI1jf-o" />
-    <meta name="description" content="A fix so Sublime does not remove trailing white spaces in your templating engine.">
+    <meta name="description" content="Use your web server to detect crawler and serve up static pages.">
     <meta name="author" content="Michael Cranston">
-    <meta name="keywords" content="sublime, text">
-    <link rel="canonical" href="http://mcranston18.github.io/sublime-trailing/">
+    <meta name="keywords" content="seo,, angular">
+    <link rel="canonical" href="http://mcranston18.github.io/angular-seo-pt2/">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
@@ -23,9 +23,9 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="SublimeText - Conditionally Removing Trailing Spaces">
+    <meta property="og:title" content="Angular and SEO - What Didn't Work (Pt. 2)">
     <meta property="og:description" content="Thoughts on front-end development.">
-    <meta property="og:url" content="http://mcranston18.github.io/sublime-trailing/">
+    <meta property="og:url" content="http://mcranston18.github.io/angular-seo-pt2/">
     <meta property="og:site_name" content="Michael Cranston">
 </head>
 
@@ -55,31 +55,40 @@
 
 
 <div class="post-header mb2">
-  <h1 class="py2">SublimeText - Conditionally Removing Trailing Spaces</h1>
-  <span class="post-meta">Oct 22, 2014</span><br>
+  <h1 class="py2">Angular and SEO - What Didn't Work (Pt. 2)</h1>
+  <span class="post-meta">Dec 22, 2014</span><br>
   
   <span class="post-meta small">1 minute read</span>
 </div>
 
 <article class="post-content">
-  <p>Trailing white spaces are <a href="http://programmers.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal">annoying</a>. Forunately, SublimeText automates this for us by simpling adding this options to our Sublime config:</p>
-
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">&quot;trim_trailing_white_space_on_save&quot;</span><span class="o">:</span> <span class="kc">true</span></code></pre></div>
-
-<p>Except we are screwed if we use a templating language. Because whitespace will be trimmed in nested element which means you won’t have a space between words. (Without littering your Jade with .)</p>
-
-<p>Thanks to StackOverflow user <a href="http://stackoverflow.com/questions/26510798/trailing-white-spaces-only-for-javascript-files-in-sublime-text/26512398#26512398">myk-willis</a>, there’s a solution:</p>
+  <p>After <a href="/angular-seo-pt1/">realizing that Googlebot was not actually indexing our single page app</a>, we decided to try to whip up a very quick server side solution:</p>
 
 <ol>
-  <li>Add <code>trim_trailing_white_space_on_save</code> to your Sublime user config (presuming you want this as your default).</li>
-  <li>Open a file-type where you do not want non-breaking spaces (i.e. Jade).</li>
-  <li>Go to <code>Preferences &gt; Settings-More &gt; Syntax Specific</code> and allow trailing spaces for that specific syntax:</li>
+  <li>use <a href="https://github.com/cburgdorf/grunt-html-snapshot">grunt-html-snapshot</a> to generate static pages that are put in a <code>/static/snapshots/</code> folder in django</li>
+  <li>nginx detects for a crawler,</li>
+  <li>if detected, maintain the same file path, but preprend with the <code>/static/snapshots/</code> route
+    <ul>
+      <li>i.e. example.com/about -&gt; example.com/static/snapshots/about</li>
+    </ul>
+  </li>
 </ol>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-<span class="s2">&quot;trim_trailing_white_space_on_save&quot;</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">}</span></code></pre></div>
+<p>This was a bad solution for a variety of reasons:</p>
 
+<ol>
+  <li>It’s not dynamic. If the crawler hits a user profile or a dynamic page, we would not serve up the correct content.</li>
+  <li>Google doesn’t like it when you serve the crawler something different from your sites real content.</li>
+  <li>We were still sending a <a href="https://support.google.com/webmasters/answer/181708">soft 404</a>.</li>
+  <li>We would have to generate new snapshots on each deploy and add/substract/edit new routes anytime something changed.</li>
+  <li>Even in their <a href="https://developers.google.com/webmasters/ajax-crawling/docs/faq#redirects">official docs</a>, Google doesn’t sound all that thrilled about using redirects for SEO.</li>
+</ol>
+
+<p>To recap, attempts at SEO:</p>
+
+<p><del>1. Relying on Googelbot executing JS</del></p>
+
+<p><del>2. Using a 302 redirect.</del></p>
 
 </article>
 
