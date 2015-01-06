@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular $httpBackend Testing Gotchas &#8211; Michael Cranston</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="Y-w8dNKFzmQ82mqiiXbeiZrUTyGSwJ3uV94hrI1jf-o" />
+    <meta name="description" content="Account for all $http methods when unit testing">
+    <meta name="author" content="Michael Cranston">
+    <meta name="keywords" content="angular,, testing">
+    <link rel="canonical" href="http://mcranston18.github.io/angular-http-testing-gotchas/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Angular $httpBackend Testing Gotchas">
+    <meta property="og:description" content="Thoughts on front-end development.">
+    <meta property="og:url" content="http://mcranston18.github.io/angular-http-testing-gotchas/">
+    <meta property="og:site_name" content="Michael Cranston">
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="/" class="site-title">Michael Cranston</a>
+      <nav class="site-nav right">
+        <a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+      <p><small>Thoughts on front-end development.</small></p>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1 class="py2">Angular $httpBackend Testing Gotchas</h1>
+  <span class="post-meta">Jan 8, 2015</span><br>
+  
+  <span class="post-meta small">3 minute read</span>
+</div>
+
+<article class="post-content">
+  <p><a href="http://plnkr.co/edit/hcqXbMHaBUOSovopvNcV?p=info">Click for the code of this post in a Plnkr</a></p>
+
+<p>Imagine you have an Angular service:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">&#39;UserService&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$http</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">getProfile</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;profile.json&#39;</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">getAccount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;account_details.json&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span></code></pre></div>
+
+<p>This is our main app config:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$stateProvider</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">$stateProvider</span>
+    <span class="p">.</span><span class="nx">state</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+      <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;template.html&#39;</span>
+    <span class="p">});</span>
+<span class="p">});</span></code></pre></div>
+
+<p>Now, you want to write a simple unit test that ensures both methods on your service actually make a <code>GET</code> request.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="s1">&#39;userService.getAccount should make a GET call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">userService</span><span class="p">.</span><span class="nx">getAccount</span><span class="p">();</span>
+  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">expectGET</span><span class="p">(</span><span class="s1">&#39;account_details.json&#39;</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;a response&#39;</span><span class="p">);</span>
+  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;userService.getProfile should make a GET call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">userService</span><span class="p">.</span><span class="nx">getProfile</span><span class="p">();</span>
+  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">expectGET</span><span class="p">(</span><span class="s1">&#39;profile.json&#39;</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;a response&#39;</span><span class="p">);</span>
+  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
+<span class="p">});</span></code></pre></div>
+
+<p>This will fail. You will see the following:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">My</span> <span class="nx">Service</span> <span class="nx">userService</span><span class="p">.</span><span class="nx">getAccount</span> <span class="nx">should</span> <span class="nx">make</span> <span class="nx">a</span> <span class="nx">GET</span> <span class="nx">call</span><span class="p">.</span>
+<span class="nb">Error</span><span class="o">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="o">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span> <span class="nx">Expected</span> <span class="nx">GET</span> <span class="nx">account_details</span><span class="p">.</span><span class="nx">json</span>
+<span class="nb">Error</span><span class="o">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="o">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span>
+<span class="nx">Expected</span> <span class="nx">GET</span> <span class="nx">account_details</span><span class="p">.</span><span class="nx">json</span></code></pre></div>
+
+<p>This confused me. Why was $httpBackend trying to fetch the template on our main route?</p>
+
+<p>The answer lies in the <a href="https://docs.angularjs.org/api/ngMock/service/$httpBackend">Angular docs</a>:</p>
+
+<blockquote>
+  <p>Request expectations provide a way to make assertions about requests made by the application and to define responses for those requests. The test will fail if the expected requests are not made or they are made in the wrong order.</p>
+</blockquote>
+
+<p>“Wrong order”. Angular’s $httpBackend service expected <code>template.html</code> as the first $http request, yet the unit test expects the <code>account_details.json</code> request to be the first.</p>
+
+<p><img src="/assets/images/are_you_kidding.jpg" alt="Are you kidding me?" /></p>
+
+<p>So this means, we need to satisfy the <code>GET</code> for <code>template.html</code> before we run our tests.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">beforeEach</span><span class="p">(</span><span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_$httpBackend_</span><span class="p">,</span> <span class="nx">UserService</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">httpBackend</span> <span class="o">=</span> <span class="nx">_$httpBackend_</span><span class="p">;</span>
+  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="sr">/.html*/</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
+<span class="p">}));</span></code></pre></div>
+
+<p>Here’s the problem with the approach above. What if we have a resolve on our main app route as well?</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="sr">/.html*/</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="s1">&#39;some_resolve_url&#39;</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span></code></pre></div>
+
+<p>Do we really want to have this in every test file when we need to test $http?</p>
+
+<p>My solution was to create a <code>helpers.js</code> file that lives in the testing folder. I create a global called <code>utils</code>:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">utils</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">appInitResolve</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">httpBackend</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="sr">/.html*/</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="s1">&#39;some_resolve_url&#39;</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
+<p>Now in each <code>beforeEach</code>, I call <code>utils.appInitResolve(httpBackend)</code>. Now if our resolve considerations change, we can update them in one file rather than crowd all the beforeEach blocks.</p>
+
+</article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'frontendthoughts'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<div style='text-align: center;'>
+  <small>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </small>
+  
+</div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+
+</footer>
+
+
+
+</body>
+</html>

@@ -902,6 +902,9 @@ footer:after {
   content: "";
   display: block; }
 
+img {
+  max-width: 300px; }
+
 /*!
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
