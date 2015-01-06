@@ -7,6 +7,33 @@
     <atom:link href="http://mcranston18.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Angular and SEO - What Worked (Pt. 3)</title>
+        <description>&lt;p&gt;After &lt;a href=&quot;/angular-seo-pt1/&quot;&gt;two&lt;/a&gt; &lt;a href=&quot;/angular-seo-pt2/&quot;&gt;failed&lt;/a&gt; attempts, we decided to use &lt;a href=&quot;https://prerender.io/&quot;&gt;prerender.io&lt;/a&gt;. They offer two versions:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Paid (up to 20,000 cached pages for $15/month)&lt;/li&gt;
+  &lt;li&gt;Use their free open-source version. You will want to handle caching yourself.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We went with the paid vesion to see if we would see a quick turn around on indexing.&lt;/p&gt;
+
+&lt;p&gt;First off, it took about four lines of code:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prerender&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;prerender-node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;prerender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;protocol&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;prerender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;host&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;host&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;prerender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;prerenderToken&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;token&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Secondly, we saw our entire site indexed by Google within about a week. Prerender worked easily and instantly.&lt;/p&gt;
+
+&lt;p&gt;Lastly, Todd Hopper, the lead engineer, really goes above and beyond to help with any issues. (In our case, a buffering issue with nginx that was causing the page to fail to completely render.)&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Jan 2015 00:00:00 -0500</pubDate>
+        <link>http://mcranston18.github.io/angular-seo-pt3/</link>
+        <guid isPermaLink="true">http://mcranston18.github.io/angular-seo-pt3/</guid>
+      </item>
+    
+      <item>
         <title>Angular and SEO - What Didn&#39;t Work (Pt. 2)</title>
         <description>&lt;p&gt;After &lt;a href=&quot;/angular-seo-pt1/&quot;&gt;realizing that Googlebot was not actually indexing our single page app&lt;/a&gt;, we decided to try to whip up a very quick server side solution:&lt;/p&gt;
 
@@ -57,7 +84,7 @@
   &lt;p&gt;That’s also the reason I haven’t written my actually planned follow-up post to this point. When I wrote the piece you read, we hadn’t any indexed, but a good amount of crawled pages. We’ve been waiting for a good month i published the write-up, trying to make some difference with the tools available in google webmaster tools; manually adding urls, recrawling, url-parameter stuff etc. At the end there hasn’t been a single page in the index crawled by the ‘js-feature’!&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Perhaps things have changed since May, but it seems from two people’s experience, relying on Googlebot to execute your javascript is not a good if SEO is a concern.&lt;/p&gt;
+&lt;p&gt;Perhaps things have changed since May, but it seems from two people’s experience, relying on Googlebot to execute your javascript is not a good option if SEO is a concern.&lt;/p&gt;
 </description>
         <pubDate>Mon, 15 Dec 2014 00:00:00 -0500</pubDate>
         <link>http://mcranston18.github.io/angular-seo-pt1/</link>

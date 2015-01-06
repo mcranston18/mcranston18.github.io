@@ -19,4 +19,4 @@ I e-mailed the author of [AngularJS & SEO - finally a piece of cake](https://wel
 
 > That's also the reason I haven't written my actually planned follow-up post to this point. When I wrote the piece you read, we hadn't any indexed, but a good amount of crawled pages. We've been waiting for a good month i published the write-up, trying to make some difference with the tools available in google webmaster tools; manually adding urls, recrawling, url-parameter stuff etc. At the end there hasn't been a single page in the index crawled by the 'js-feature'!
 
-Perhaps things have changed since May, but it seems from two people's experience, relying on Googlebot to execute your javascript is not a good if SEO is a concern.
+Perhaps things have changed since May, but it seems from two people's experience, relying on Googlebot to execute your javascript is not a good option if SEO is a concern.
