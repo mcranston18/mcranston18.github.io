@@ -25,4 +25,4 @@ prerender.set('prerenderToken', '<token>');
 
 Secondly, we saw our entire site indexed by Google within about a week. Prerender worked easily and instantly.
 
-Lastly, Todd Hopper, the lead engineer, really goes above and beyond to help with any issues. (In our case, a buffering issue with nginx that was causing the page to fail to completely render.)
+Lastly, Todd Hopper, the lead engineer, really goes above and beyond to help with any issues. (In our case, a buffering issue with nginx that was causing the page to fail to completely render.) For anyone considering a service (paid or free) to help SEO for a single-page app, I have only good things to say about Prerender.
