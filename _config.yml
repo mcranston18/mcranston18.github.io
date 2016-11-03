@@ -2,7 +2,6 @@
 title: Michael Cranston
 email: cranston.michaelrichard@gmail.com
 author: Michael Cranston
-description: "Thoughts on front-end development."
 baseurl: ""
 url: "http://mcranston18.github.io"
 google_analytics:
@@ -15,8 +14,8 @@ markdown: kramdown
 permalink: /:title/
 highlighter: pygments
 paginate: 10
-gems:
-  jekyll-paginate
+paginate_path: blog/:num
+
 sass:
   compressed: true
 gems: [jekyll-paginate]
