@@ -15,5 +15,8 @@ markdown: kramdown
 permalink: /:title/
 highlighter: pygments
 paginate: 10
+gems:
+  jekyll-paginate
 sass:
   compressed: true
+gems: [jekyll-paginate]

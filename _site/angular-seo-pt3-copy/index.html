@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SublimeText - Conditionally Removing Trailing Spaces &#8211; Michael Cranston</title>
+    <title>Angular and SEO - What Worked (Pt. 3) &#8211; Michael Cranston</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="Y-w8dNKFzmQ82mqiiXbeiZrUTyGSwJ3uV94hrI1jf-o" />
-    <meta name="description" content="A fix so Sublime does not remove trailing white spaces in your templating engine.">
+    <meta name="description" content="Just use prerender.io">
     <meta name="author" content="Michael Cranston">
-    <meta name="keywords" content="sublime, text">
-    <link rel="canonical" href="http://mcranston18.github.io/sublime-trailing/">
+    <meta name="keywords" content="seo,, angular">
+    <link rel="canonical" href="http://mcranston18.github.io/angular-seo-pt3-copy/">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
@@ -23,9 +23,9 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="SublimeText - Conditionally Removing Trailing Spaces">
+    <meta property="og:title" content="Angular and SEO - What Worked (Pt. 3)">
     <meta property="og:description" content="Thoughts on front-end development.">
-    <meta property="og:url" content="http://mcranston18.github.io/sublime-trailing/">
+    <meta property="og:url" content="http://mcranston18.github.io/angular-seo-pt3-copy/">
     <meta property="og:site_name" content="Michael Cranston">
 </head>
 
@@ -53,31 +53,32 @@
 
 
 <div class="post-header mb2">
-  <h1 class="py2">SublimeText - Conditionally Removing Trailing Spaces</h1>
-  <span class="post-meta">Oct 22, 2014</span><br>
+  <h1 class="py2">Angular and SEO - What Worked (Pt. 3)</h1>
+  <span class="post-meta">Jan 7, 2015</span><br>
   
   <span class="post-meta small">1 minute read</span>
 </div>
 
 <article class="post-content">
-  <p>Trailing white spaces are <a href="http://programmers.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal">annoying</a>. Forunately, SublimeText automates this for us by simpling adding this options to our Sublime config:</p>
-
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">&quot;trim_trailing_white_space_on_save&quot;</span><span class="o">:</span> <span class="kc">true</span></code></pre></figure>
-
-<p>Except we are screwed if we use a templating language. Because whitespace will be trimmed in nested element which means you won’t have a space between words. (Without littering your Jade with .)</p>
-
-<p>Thanks to StackOverflow user <a href="http://stackoverflow.com/questions/26510798/trailing-white-spaces-only-for-javascript-files-in-sublime-text/26512398#26512398">myk-willis</a>, there’s a solution:</p>
+  <p>After <a href="/angular-seo-pt1/">two</a> <a href="/angular-seo-pt2/">failed</a> attempts, we decided to use <a href="https://prerender.io/">prerender.io</a>. They offer two versions:</p>
 
 <ol>
-  <li>Add <code>trim_trailing_white_space_on_save</code> to your Sublime user config (presuming you want this as your default).</li>
-  <li>Open a file-type where you do not want non-breaking spaces (i.e. Jade).</li>
-  <li>Go to <code>Preferences &gt; Settings-More &gt; Syntax Specific</code> and allow trailing spaces for that specific syntax:</li>
+  <li>Paid (up to 20,000 cached pages for $15/month)</li>
+  <li>Use their free open-source version. You will want to handle caching yourself.</li>
 </ol>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-<span class="s2">&quot;trim_trailing_white_space_on_save&quot;</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">}</span></code></pre></figure>
+<p>We went with the paid vesion to see if we would see a quick turn around on indexing.</p>
 
+<p>First off, it took about four lines of code:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">prerender</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;prerender-node&#39;</span><span class="p">);</span>
+<span class="nx">prerender</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;protocol&#39;</span><span class="p">,</span> <span class="s1">&#39;https&#39;</span><span class="p">);</span>
+<span class="nx">prerender</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;host&gt;&#39;</span><span class="p">);</span>
+<span class="nx">prerender</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;prerenderToken&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;token&gt;&#39;</span><span class="p">);</span></code></pre></figure>
+
+<p>Secondly, we saw our entire site indexed by Google within about a week. Prerender worked easily and instantly.</p>
+
+<p>Lastly, Todd Hopper, the lead engineer, really goes above and beyond to help with any issues. (In our case, a buffering issue with nginx that was causing the page to fail to completely render.) For anyone considering a service (paid or free) to help SEO for a single-page app, I have only good things to say about Prerender.</p>
 
 </article>
 

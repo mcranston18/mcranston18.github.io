@@ -52,8 +52,6 @@
         
 
 
-
-
 <div class="post-header mb2">
   <h1 class="py2">The Stupid Reason Why PhantomJS Isn't Running On Your Heroku Project</h1>
   <span class="post-meta">May 7, 2015</span><br>
@@ -64,12 +62,12 @@
 <article class="post-content">
   <p>If you want to run PhantomJS on a NodeJS Heroku project, you may have seen the dreaded error:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">phantomjs</span><span class="o">-</span><span class="nx">node</span><span class="o">:</span> <span class="nx">You</span> <span class="nx">don</span><span class="s1">&#39;t have &#39;</span><span class="nx">phantomjs</span><span class="err">&#39;</span> <span class="nx">installed</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">phantomjs</span><span class="o">-</span><span class="nx">node</span><span class="o">:</span> <span class="nx">You</span> <span class="nx">don</span><span class="s1">&#39;t have &#39;</span><span class="nx">phantomjs</span><span class="err">&#39;</span> <span class="nx">installed</span></code></pre></figure>
 
 <p>Apparently, all I had to do was ensure my PhantomJS buildpack came <em>before</em> the NodeJS buildpack. Using the command line, run:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">heroku</span> <span class="nx">buildpacks</span><span class="o">:</span><span class="nx">add</span> <span class="o">--</span><span class="nx">index</span> <span class="mi">1</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/stomita/heroku-buildpack-phantomjs.git</span>
-<span class="nx">heroku</span> <span class="nx">buildpacks</span><span class="o">:</span><span class="nx">add</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/heroku/heroku-buildpack-nodejs</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">heroku</span> <span class="nx">buildpacks</span><span class="o">:</span><span class="nx">add</span> <span class="o">--</span><span class="nx">index</span> <span class="mi">1</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/stomita/heroku-buildpack-phantomjs.git</span>
+<span class="nx">heroku</span> <span class="nx">buildpacks</span><span class="o">:</span><span class="nx">add</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/heroku/heroku-buildpack-nodejs</span></code></pre></figure>
 
 <p>The <code>--index 1</code> flag puts the PhantomJS buildpack in the first position. The last buildpack in the list is the one that Heroku uses to boot your app. Any other buildpacks that your app eventually rely on must go first in that list.</p>
 
