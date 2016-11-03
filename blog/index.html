@@ -1,18 +1,19 @@
 ---
 layout: page
-title: My Blog
 permalink: /blog/
 ---
 
-<div class="home">
+<div class="wrapper">
   <div class="posts">
     {% for post in paginator.posts %}
       <div class="post">
-        <a href="{{ post.url | prepend: site.baseurl }}" class="post-link">
-          <p class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</p>
-          <h3 class="h2 post-title">{{ post.title }}</h3>
+          <div class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</div>
+          <h3 class="h2 post-title">
+            <a href="{{ post.url | prepend: site.baseurl }}" class="post-link">
+              {{ post.title }}
+            </a>
+          </h3>
           <p class="post-summary">{{ post.summary }}</p>
-        </a>
       </div>
     {% endfor %}
   </div>
@@ -20,3 +21,4 @@ permalink: /blog/
 
   {% include pagination.html %}
 </div>
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My Blog &#8211; Michael Cranston</title>
+    <title>Michael Cranston</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="Y-w8dNKFzmQ82mqiiXbeiZrUTyGSwJ3uV94hrI1jf-o" />
     <meta name="description" content="">
@@ -23,7 +23,7 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="My Blog">
+    <meta property="og:title" content="Michael Cranston">
     <meta property="og:description" content="">
     <meta property="og:url" content="http://mcranston18.github.io/blog/">
     <meta property="og:site_name" content="Michael Cranston">
@@ -31,106 +31,128 @@
 
 <body class="">
   <div class="site-wrap">
-    <header>
-  <h1>
+    <header class="overflow-auto">
+  <h1 class="float-left">
     <a href="/" class="site-title">Michael Cranston</a>
   </h1>
+  <nav class="float-right">
+    <a href="/blog/">Blog</a>
+<a href="https://github.com/mcranston18/">Github</a>
+<a href="mailto:cranston.michaelrichard@gmail.com">E-mail</a>
+
+  </nav>
+
 </header>
-
-<!-- <nav class="float-right">
-  <a href="/blog/">Blog</a>
-
-</nav> -->
 
 
     <div class="post p2 p-responsive wrap" role="main">
       <div class="measure">
         <div class="post">
   <header class="post-header">
-    <h1 class="h2">My Blog</h1>
+    <h1 class="h2"></h1>
   </header>
   <article class="post-content">
-  <div class="home">
+  <div class="wrapper">
   <div class="posts">
     
       <div class="post">
-        <a href="/phantom-js-on-heroku/" class="post-link">
-          <p class="post-meta">May 7, 2015</p>
-          <h3 class="h2 post-title">The Stupid Reason Why PhantomJS Isn't Running On Your Heroku Project</h3>
+          <div class="post-meta">May 7, 2015</div>
+          <h3 class="h2 post-title">
+            <a href="/phantom-js-on-heroku/" class="post-link">
+              The Stupid Reason Why PhantomJS Isn't Running On Your Heroku Project
+            </a>
+          </h3>
           <p class="post-summary">It's the buildpacks.</p>
-        </a>
       </div>
     
       <div class="post">
-        <a href="/angular-http-testing-gotchas/" class="post-link">
-          <p class="post-meta">Jan 8, 2015</p>
-          <h3 class="h2 post-title">Angular $httpBackend Testing Gotchas</h3>
+          <div class="post-meta">Jan 8, 2015</div>
+          <h3 class="h2 post-title">
+            <a href="/angular-http-testing-gotchas/" class="post-link">
+              Angular $httpBackend Testing Gotchas
+            </a>
+          </h3>
           <p class="post-summary">Account for all $http methods when unit testing</p>
-        </a>
       </div>
     
       <div class="post">
-        <a href="/angular-seo-pt3-copy/" class="post-link">
-          <p class="post-meta">Jan 7, 2015</p>
-          <h3 class="h2 post-title">Angular and SEO - What Worked (Pt. 3)</h3>
+          <div class="post-meta">Jan 7, 2015</div>
+          <h3 class="h2 post-title">
+            <a href="/angular-seo-pt3-copy/" class="post-link">
+              Angular and SEO - What Worked (Pt. 3)
+            </a>
+          </h3>
           <p class="post-summary">Just use prerender.io</p>
-        </a>
       </div>
     
       <div class="post">
-        <a href="/angular-seo-pt2/" class="post-link">
-          <p class="post-meta">Dec 22, 2014</p>
-          <h3 class="h2 post-title">Angular and SEO - What Didn't Work (Pt. 2)</h3>
+          <div class="post-meta">Dec 22, 2014</div>
+          <h3 class="h2 post-title">
+            <a href="/angular-seo-pt2/" class="post-link">
+              Angular and SEO - What Didn't Work (Pt. 2)
+            </a>
+          </h3>
           <p class="post-summary">Use your web server to detect crawler and serve up static pages.</p>
-        </a>
       </div>
     
       <div class="post">
-        <a href="/angular-seo-pt1/" class="post-link">
-          <p class="post-meta">Dec 15, 2014</p>
-          <h3 class="h2 post-title">Angular and SEO - What Didn't Work (Pt. I)</h3>
+          <div class="post-meta">Dec 15, 2014</div>
+          <h3 class="h2 post-title">
+            <a href="/angular-seo-pt1/" class="post-link">
+              Angular and SEO - What Didn't Work (Pt. I)
+            </a>
+          </h3>
           <p class="post-summary">As of May 2014, Googlebot said it executes javascript but is it actually indexing single page apps?</p>
-        </a>
       </div>
     
       <div class="post">
-        <a href="/gulp-piping/" class="post-link">
-          <p class="post-meta">Nov 21, 2014</p>
-          <h3 class="h2 post-title">Gulp - Getting the return value from one task to another</h3>
+          <div class="post-meta">Nov 21, 2014</div>
+          <h3 class="h2 post-title">
+            <a href="/gulp-piping/" class="post-link">
+              Gulp - Getting the return value from one task to another
+            </a>
+          </h3>
           <p class="post-summary">Solution when a Gulp pipe needs to resolve syncronously with data from a preceeding pipe</p>
-        </a>
       </div>
     
       <div class="post">
-        <a href="/gulp-sever/" class="post-link">
-          <p class="post-meta">Nov 3, 2014</p>
-          <h3 class="h2 post-title">Gulp - Fix to socket hang up using httpProxy</h3>
+          <div class="post-meta">Nov 3, 2014</div>
+          <h3 class="h2 post-title">
+            <a href="/gulp-sever/" class="post-link">
+              Gulp - Fix to socket hang up using httpProxy
+            </a>
+          </h3>
           <p class="post-summary">Fix to Gulp crashing when using httpProxy</p>
-        </a>
       </div>
     
       <div class="post">
-        <a href="/sublime-trailing/" class="post-link">
-          <p class="post-meta">Oct 22, 2014</p>
-          <h3 class="h2 post-title">SublimeText - Conditionally Removing Trailing Spaces</h3>
+          <div class="post-meta">Oct 22, 2014</div>
+          <h3 class="h2 post-title">
+            <a href="/sublime-trailing/" class="post-link">
+              SublimeText - Conditionally Removing Trailing Spaces
+            </a>
+          </h3>
           <p class="post-summary">A fix so Sublime does not remove trailing white spaces in your templating engine.</p>
-        </a>
       </div>
     
       <div class="post">
-        <a href="/naming-conventions/" class="post-link">
-          <p class="post-meta">Oct 4, 2014</p>
-          <h3 class="h2 post-title">Naming Conventions and Folder Structure in an AngularJS App</h3>
+          <div class="post-meta">Oct 4, 2014</div>
+          <h3 class="h2 post-title">
+            <a href="/naming-conventions/" class="post-link">
+              Naming Conventions and Folder Structure in an AngularJS App
+            </a>
+          </h3>
           <p class="post-summary">Proposal for naming files and folder structure in a large Angular app.</p>
-        </a>
       </div>
     
       <div class="post">
-        <a href="/maintainable-angular-strucutre-in-angular-controllers/" class="post-link">
-          <p class="post-meta">Sep 27, 2014</p>
-          <h3 class="h2 post-title">Maintainble Angular - Structuring Controllers</h3>
+          <div class="post-meta">Sep 27, 2014</div>
+          <h3 class="h2 post-title">
+            <a href="/maintainable-angular-strucutre-in-angular-controllers/" class="post-link">
+              Maintainble Angular - Structuring Controllers
+            </a>
+          </h3>
           <p class="post-summary">Proposal on separating code within Angular controllers.</p>
-        </a>
       </div>
     
   </div>
@@ -150,6 +172,7 @@
 </div>
 
 </div>
+
 
   </article>
 </div>

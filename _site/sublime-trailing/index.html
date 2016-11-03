@@ -31,32 +31,31 @@
 
 <body class="">
   <div class="site-wrap">
-    <header>
-  <h1>
+    <header class="overflow-auto">
+  <h1 class="float-left">
     <a href="/" class="site-title">Michael Cranston</a>
   </h1>
+  <nav class="float-right">
+    <a href="/blog/">Blog</a>
+<a href="https://github.com/mcranston18/">Github</a>
+<a href="mailto:cranston.michaelrichard@gmail.com">E-mail</a>
+
+  </nav>
+
 </header>
-
-<!-- <nav class="float-right">
-  <a href="/blog/">Blog</a>
-
-</nav> -->
 
 
     <div class="post p2 p-responsive wrap" role="main">
       <div class="measure">
-        
+        <div class="wrapper">
+  <div class="post-header mb2">
+    <div class="post-meta">Oct 22, 2014</div>
+    <h2 class="py2">SublimeText - Conditionally Removing Trailing Spaces</h2>
+    
+  </div>
 
-
-<div class="post-header mb2">
-  <h1 class="py2">SublimeText - Conditionally Removing Trailing Spaces</h1>
-  <span class="post-meta">Oct 22, 2014</span><br>
-  
-  <span class="post-meta small">1 minute read</span>
-</div>
-
-<article class="post-content">
-  <p>Trailing white spaces are <a href="http://programmers.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal">annoying</a>. Forunately, SublimeText automates this for us by simpling adding this options to our Sublime config:</p>
+  <article class="post-content">
+    <p>Trailing white spaces are <a href="http://programmers.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal">annoying</a>. Forunately, SublimeText automates this for us by simpling adding this options to our Sublime config:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">&quot;trim_trailing_white_space_on_save&quot;</span><span class="o">:</span> <span class="kc">true</span></code></pre></figure>
 
@@ -75,9 +74,9 @@
 <span class="p">}</span></code></pre></figure>
 
 
-</article>
+  </article>
 
-<div id="disqus_thread"></div>
+  <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'frontendthoughts'; // required: replace example with your forum shortname
@@ -99,6 +98,9 @@
 </div>
 
 
+
+  
+</div>
 
 
 
