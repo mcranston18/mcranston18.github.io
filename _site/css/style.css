@@ -15,8 +15,8 @@ html, body {
 
 body {
   font-family: monospace;
-  background-color: #eee;
-  color: #111;
+  background-color: #F2F0EA;
+  color: #333;
   margin: 10px;
   line-height: 1.8
 }
@@ -85,7 +85,7 @@ p {
 }
 
 .post-header .meta {
-  color: #818181;
+  opacity: 0.8;
   margin-top: 0.4rem;
 }
 
@@ -114,6 +114,12 @@ p {
 
 .post {
   margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #E5E4DE;
+}
+
+.post:last-child {
+  border-bottom: 0;
 }
 
 .post code { padding: 1px 0.4rem; }
@@ -138,7 +144,11 @@ p {
   margin-bottom: 0.5rem;
 }
 
-/* Syntax highlighting styles */
+.post-summary {
+  opacity: 0.8;
+}
+
+/* Syntax highlighti.ng styles */
 /* ----------------------------------------------------------*/
 
 .highlight  { background: #ffffff; }
