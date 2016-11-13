@@ -55,6 +55,9 @@ p {
 .home {
   max-width: 500px; }
 
+ul, ol {
+  padding-left: 1rem; }
+
 .site-name {
   font-size: 150%;
   margin-bottom: 1rem; }
@@ -68,86 +71,49 @@ p {
   .site-nav {
     float: right; } }
 
-.post.p2.p-responsive.wrap {
-  background: #f0f1ea; }
-
-.py2 {
-  font-weight: bold;
-  font-weight: normal;
-  font-size: 150%;
-  margin: 1em auto 1.67em;
-  text-align: center; }
-  @media only screen and (min-width: 40.063rem) {
-    .py2 {
-      max-width: 810px;
-      font-size: 250%;
-      width: 70%; } }
-
-.post-content, #disqus_thread {
-  max-width: 540px;
-  width: 100%;
-  line-height: 1.6;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1.5em;
-  margin-bottom: 0; }
-
-.post-header {
-  margin: 1rem 0 2rem; }
-
-.post-header h1 {
-  line-height: 1;
-  font-weight: 300; }
-
-.post-header .meta {
-  opacity: 0.8;
-  margin-top: 0.4rem; }
-
-.post-content blockquote {
-  border-left: 4px solid #797A7E;
-  padding-left: 1.5rem;
-  opacity: .8;
-  font-style: italic;
-  margin: 2rem 0; }
-
-.post-content ul,
-.post-content ol {
-  padding-left: 1.5rem; }
-
-.post pre,
-.post code {
-  background-color: #2A2B29;
-  padding: 8px 0.75rem;
-  color: white; }
-
 .post {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid #E5E4DE; }
-
-.post:last-child {
-  border-bottom: 0; }
-
-.post ul,
-.post ol {
-  margin-left: 1.35em; }
-
-.post code {
-  padding: 1px 0.4rem; }
-
-.post pre code {
-  border: none; }
-
-.post pre.terminal, .post pre.terminal code {
-  background-color: #2A2B29; }
-
-.post-meta {
-  opacity: 0.7;
-  margin-bottom: 0.5rem;
-  text-align: center; }
-
-.post-summary {
-  opacity: 0.7; }
+  .post .measure {
+    max-width: 700px;
+    margin: auto; }
+  .post .post-header {
+    margin: 1rem 0 2rem; }
+    .post .post-header h1 {
+      line-height: 1;
+      font-weight: 300; }
+  .post .py2 {
+    font-weight: bold;
+    font-weight: normal;
+    font-size: 150%;
+    margin: 1rem auto; }
+  .post .post-content, .post #disqus_thread {
+    line-height: 1.8;
+    margin-top: 1.5rem; }
+  .post .post-meta {
+    opacity: 0.7;
+    margin-bottom: 0.5rem; }
+  .post .post-summary {
+    opacity: 0.7; }
+  .post blockquote {
+    border-left: 4px solid #797A7E;
+    padding-left: 1.5rem;
+    opacity: .8;
+    font-style: italic;
+    margin: 2rem 0; }
+  .post ul, .post ol {
+    padding-left: 1.5rem;
+    margin-left: 1.35rem; }
+  .post pre, .post code {
+    background-color: #2A2B29;
+    padding: 0.5rem 0.75rem;
+    color: white;
+    border: none; }
+  .post code {
+    padding: 1px 0.4rem; }
+  .post:last-child {
+    border-bottom: 0; }
 
 code {
   font-family: monospace;

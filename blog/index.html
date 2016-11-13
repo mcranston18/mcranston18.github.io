@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 permalink: /blog/
 ---
 
@@ -8,17 +8,14 @@ permalink: /blog/
     {% for post in paginator.posts %}
       <div class="post">
           <div class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</div>
-          <h3 class="h2 post-title">
+          <h2 class="py2">
             <a href="{{ post.url | prepend: site.baseurl }}" class="post-link">
               {{ post.title }}
             </a>
-          </h3>
+          </h2>
           <p class="post-summary">{{ post.summary }}</p>
       </div>
     {% endfor %}
   </div>
-
-
-  {% include pagination.html %}
 </div>
 
