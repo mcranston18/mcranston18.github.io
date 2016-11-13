@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-size: 18px;
+}
+
+body {
+  font-family: Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+  background-color: $lightest;
+  margin: 0.55rem;
+  line-height: 1.8;
+
+  @media #{$tablet} {
+    margin: 2.2rem;
+    line-height: 1.4;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: 400;
+}
+
+a {
+  color: $darkest;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: $darkest;
+}
+
+img {
+  width: 100%;
+}
+
+header {
+  margin-bottom: 2.5rem;
+}
+
+p {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.home {
+  max-width: 500px;
+}
+
+ul, ol {
+  padding-left: 1rem;
+}
+
+.site-name {
+  font-size: 150%;
+  margin-bottom: 1rem;
+  @media #{$tablet} {
+    float: left;
+    font-size: 100%;
+    margin-bottom: 0;
+  }
+}
+
+.site-nav {
+  @media #{$tablet} {
+    float: right;
+  }
+}
