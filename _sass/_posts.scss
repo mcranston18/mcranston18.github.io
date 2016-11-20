@@ -18,6 +18,12 @@
     }
   }
 
+  h2 {
+    font-size: 125%;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
   .py2 {
     font-weight: bold;
     font-weight: normal;
@@ -25,7 +31,12 @@
     margin: 1rem auto;
   }
 
-  .post-content, #disqus_thread {
+  .post-content {
+    line-height: 1.8;
+    margin-top: 1.5rem;
+  }
+
+  #disqus_thread {
     line-height: 1.8;
     margin-top: 1.5rem;
   }
@@ -53,10 +64,18 @@
   }
 
   pre, code {
+    display: inline-block;
     background-color: $code;
-    padding: 0.5rem 0.75rem;
+    // padding: 0.5rem 0.75rem;
     color: white;
     border: none;
+    // line-height: 1;
+  }
+
+
+  .highlight pre, .highlight code {
+    display: block;
+    padding: 0.3rem 0.5rem;
   }
 
   code {

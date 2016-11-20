@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>$onChanges & Deep Watches &#8211; Michael Cranston</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="Y-w8dNKFzmQ82mqiiXbeiZrUTyGSwJ3uV94hrI1jf-o" />
+    <meta name="description" content="Understanding the limitations of $onChanges">
+    <meta name="author" content="Michael Cranston">
+    <meta name="keywords" content="angular,, components">
+    <link rel="canonical" href="http://mcranston18.github.io/on-changes/">
+    <link rel=icon href="/assets/images/favicon.png?v=2" sizes="16x16" type="image/png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="$onChanges & Deep Watches">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="http://mcranston18.github.io/on-changes/">
+    <meta property="og:site_name" content="Michael Cranston">
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="overflow-auto monospace">
+  <h1 class="site-name">
+    <a href="/" class="site-title">Michael Cranston</a>
+  </h1>
+  <nav class="site-nav">
+    <a href="/blog/">Blog</a>
+<a href="https://github.com/mcranston18/">Github</a>
+<a href="mailto:cranston.michaelrichard@gmail.com">E-mail</a>
+
+  </nav>
+
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="wrapper">
+  <div class="post-header mb2">
+    <div class="post-meta">Nov 4, 2016</div>
+    <h2 class="py2">$onChanges & Deep Watches</h2>
+    
+  </div>
+
+  <article class="post-content">
+    <h2 id="tldr">TL:DR</h2>
+
+<p><code>$onChanges</code> will not fire just because a bindable object changes. If you need to know every time the object changes, you will have to pass in a new/copied version of the object, or use <code>$doCheck</code>. <a href="http://plnkr.co/edit/rJZdWgOhwqSkz3spg3TS?p=preview">Here is a live example on plnkr</a>.</p>
+
+<h2 id="the-problem">The Problem</h2>
+
+<p>Image we have a data object that gets passed into a child component:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$ctrl</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="nx">blue</span><span class="p">};</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">angular</span>
+  <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;child&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">bindings</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;&lt;&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">controller</span><span class="o">:</span> <span class="kr">class</span> <span class="p">{</span>
+      <span class="nx">$onChanges</span><span class="p">(</span><span class="nx">changes</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// this method will only fire if this.data is a new object</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span></code></pre></figure>
+
+<p>Whenever the <code>color</code> property changes, we want to run a funtion. The problem is that the <code>$onChanges</code> event will not fire because the object itself has not changed.</p>
+
+<h2 id="three-possible-solutions">Three Possible Solutions</h2>
+
+<p>1.
+In your parent, pass in a copied version of <code>this.data</code> every time by using <code>angular.copy(this.data)</code>.</p>
+
+<p>2.
+Add the <code>$doCheck</code> hook to your component which will fire anytime the scope of your component changes. The downside of this approach is that it could be a performance hit.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">angular</span>
+ <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">)</span>
+ <span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;child&#39;</span><span class="p">,</span> <span class="p">{</span>
+   <span class="nx">bindings</span><span class="o">:</span> <span class="p">{</span>
+     <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;&lt;&#39;</span>
+   <span class="p">},</span>
+   <span class="nx">controller</span><span class="o">:</span> <span class="kr">class</span> <span class="p">{</span>
+     <span class="nx">$doCheck</span><span class="p">(</span><span class="nx">changes</span><span class="p">)</span> <span class="p">{</span>
+       <span class="c1">// this method will fire anytime the component&#39;s scope changes</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">});</span></code></pre></figure>
+
+<p>3.
+You can still technically add <code>$scope.$watch</code> to your $onInit method, but this is a bad solution. <code>$scope.$watch</code> is not apart of Angular 2 and relying on it is counter-productive to component-based architecture and any upgrade strategy.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"> <span class="nx">angular</span>
+   <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">)</span>
+   <span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;child&#39;</span><span class="p">,</span> <span class="p">{</span>
+     <span class="nx">bindings</span><span class="o">:</span> <span class="p">{</span>
+       <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;&lt;&#39;</span>
+     <span class="p">},</span>
+     <span class="nx">controller</span><span class="o">:</span> <span class="kr">class</span> <span class="p">{</span>
+       <span class="nx">constructor</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="nx">$scope</span> <span class="o">=</span> <span class="nx">$scope</span><span class="p">;</span>
+       <span class="p">}</span>
+
+       <span class="nx">$onInit</span><span class="p">()</span> <span class="p">{</span>
+         <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;$ctrl.data&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+           <span class="c1">// do something</span>
+         <span class="p">},</span> <span class="kc">true</span><span class="p">);</span>
+       <span class="p">}</span>
+     <span class="p">}</span>
+   <span class="p">});</span>
+ </code></pre></figure>
+
+<h2 id="why-onchanges-does-not-do-deep-watches">Why $onChanges does not do deep watches</h2>
+
+<p>This is <a href="https://github.com/angular/angular.js/issues/14378#issuecomment-207351242">by design</a></p>
+
+<blockquote>
+  <p>This is indeed intended. It would be too expensive to check each object deeply for changes. Besides, in most cases, where bindings are used in a template, an “internal” change will automatically update the view.If you want to account for “deep” changes, you need to manually $watch the object.</p>
+</blockquote>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="https://github.com/toddmotto/angular-styleguide">Todd Motto’s posts and guides</a></li>
+  <li><a href="https://github.com/angular/angular.js/issues/14378#issuecomment-207351242">triggering $onChanges for updated one way binding #14378</a></li>
+  <li><a href="http://www.kristofdegrave.be/2016/07/component-lifecycle-docheck-angular-15x_22.html">Component Lifecycle: $doCheck (angular 1.5.x)</a></li>
+</ul>
+
+
+  </article>
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'frontendthoughts'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<div style='text-align: center;'>
+  <small>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </small>
+  
+</div>
+
+
+
+  
+</div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+
+</footer>
+
+
+
+</body>
+</html>
