@@ -83,12 +83,19 @@ ul, ol {
     .post .post-header h1 {
       line-height: 1;
       font-weight: 300; }
+  .post h2 {
+    font-size: 125%;
+    font-weight: bold;
+    margin-bottom: 0.5rem; }
   .post .py2 {
     font-weight: bold;
     font-weight: normal;
     font-size: 150%;
     margin: 1rem auto; }
-  .post .post-content, .post #disqus_thread {
+  .post .post-content {
+    line-height: 1.8;
+    margin-top: 1.5rem; }
+  .post #disqus_thread {
     line-height: 1.8;
     margin-top: 1.5rem; }
   .post .post-meta {
@@ -106,10 +113,13 @@ ul, ol {
     padding-left: 1.5rem;
     margin-left: 1.35rem; }
   .post pre, .post code {
+    display: inline-block;
     background-color: #2A2B29;
-    padding: 0.5rem 0.75rem;
     color: white;
     border: none; }
+  .post .highlight pre, .post .highlight code {
+    display: block;
+    padding: 0.3rem 0.5rem; }
   .post code {
     padding: 1px 0.4rem; }
   .post:last-child {
