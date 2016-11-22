@@ -8,7 +8,7 @@ hidden:     true
 categories: angular, components
 ---
 
-## TL:DR
+## TL;DR
 
 `$onChanges` will not fire just because a bindable object changes. If you need to know every time the object changes, you will have to pass in a new/copied version of the object, or use `$doCheck`. [Here is a live example on plnkr](http://plnkr.co/edit/rJZdWgOhwqSkz3spg3TS?p=preview).
 

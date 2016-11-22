@@ -1,5 +1,4 @@
 .post {
-  // background: $light;
   margin-bottom: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid #E5E4DE;
@@ -63,15 +62,16 @@
     margin-left: 1.35rem;
   }
 
-  pre, code {
+  code {
     display: inline-block;
-    background-color: $code;
-    // padding: 0.5rem 0.75rem;
-    color: white;
     border: none;
-    // line-height: 1;
+    background-color: #ddd;
   }
 
+  .highlight pre, .highlight code {
+    background-color: $code !important;
+    color: white;
+  }
 
   .highlight pre, .highlight code {
     display: block;
