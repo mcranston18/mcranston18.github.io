@@ -10,11 +10,11 @@ categories: angular, components
 
 ## TL;DR
 
-`$onChanges` will not fire just because a bindable object changes. If you need to know every time the object changes, you will have to pass in a new/copied version of the object, or use `$doCheck`. [Here is a live example on plnkr](http://plnkr.co/edit/rJZdWgOhwqSkz3spg3TS?p=preview).
+`$onChanges` will not fire just because a bindable object changes. If you need to know every time the object changes, you will have to pass in a new/copied version of the object, or use `$doCheck`. [Here is a live example on plnkr.co](http://plnkr.co/edit/rJZdWgOhwqSkz3spg3TS?p=preview).
 
 ## The Problem
 
-Image we have a data object that gets passed into a child component:
+Imagine we have a data object that gets passed into a child component:
 {% highlight javascript %}
 $ctrl.data = {color: blue};
 {% endhighlight %}
@@ -34,7 +34,7 @@ angular
   });
 {% endhighlight %}
 
-Whenever the `color` property changes, we want to run a funtion. The problem is that the `$onChanges` event will not fire because the object itself has not changed.
+Whenever the `color` property changes, we want to run a function. The problem is that the `$onChanges` event will not fire because the object itself has not changed.
 
 ## Three Possible Solutions
 
@@ -60,7 +60,7 @@ angular
 {% endhighlight %}
 
 3.
-You can still technically add `$scope.$watch` to your $onInit method, but this is a bad solution. `$scope.$watch` is not apart of Angular 2 and relying on it is counter-productive to component-based architecture and any upgrade strategy.
+You can still technically add `$scope.$watch` to your `$onInit` method, but this is a bad solution. `$scope.$watch` is not apart of Angular 2 and relying on it is counter-productive to [component-based architecture](https://github.com/toddmotto/angular-1-5-components-app) and any [upgrade strategy](https://angular.io/docs/ts/latest/guide/upgrade.html).
 
  {% highlight javascript %}
  angular
@@ -86,9 +86,9 @@ You can still technically add `$scope.$watch` to your $onInit method, but this i
 
 ## Why $onChanges does not do deep watches
 
-This is [by design](https://github.com/angular/angular.js/issues/14378#issuecomment-207351242)
+This is [by design](https://github.com/angular/angular.js/issues/14378#issuecomment-207351242):
 
-> This is indeed intended. It would be too expensive to check each object deeply for changes. Besides, in most cases, where bindings are used in a template, an "internal" change will automatically update the view.If you want to account for "deep" changes, you need to manually $watch the object.
+> This is indeed intended. It would be too expensive to check each object deeply for changes. Besides, in most cases, where bindings are used in a template, an "internal" change will automatically update the view. If you want to account for "deep" changes, you need to manually $watch the object.
 
 ## Further Reading
 

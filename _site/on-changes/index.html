@@ -58,11 +58,11 @@
   <article class="post-content">
     <h2 id="tldr">TL;DR</h2>
 
-<p><code>$onChanges</code> will not fire just because a bindable object changes. If you need to know every time the object changes, you will have to pass in a new/copied version of the object, or use <code>$doCheck</code>. <a href="http://plnkr.co/edit/rJZdWgOhwqSkz3spg3TS?p=preview">Here is a live example on plnkr</a>.</p>
+<p><code>$onChanges</code> will not fire just because a bindable object changes. If you need to know every time the object changes, you will have to pass in a new/copied version of the object, or use <code>$doCheck</code>. <a href="http://plnkr.co/edit/rJZdWgOhwqSkz3spg3TS?p=preview">Here is a live example on plnkr.co</a>.</p>
 
 <h2 id="the-problem">The Problem</h2>
 
-<p>Image we have a data object that gets passed into a child component:</p>
+<p>Imagine we have a data object that gets passed into a child component:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$ctrl</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="nx">blue</span><span class="p">};</span></code></pre></figure>
 
@@ -79,7 +79,7 @@
     <span class="p">}</span>
   <span class="p">});</span></code></pre></figure>
 
-<p>Whenever the <code>color</code> property changes, we want to run a funtion. The problem is that the <code>$onChanges</code> event will not fire because the object itself has not changed.</p>
+<p>Whenever the <code>color</code> property changes, we want to run a function. The problem is that the <code>$onChanges</code> event will not fire because the object itself has not changed.</p>
 
 <h2 id="three-possible-solutions">Three Possible Solutions</h2>
 
@@ -103,7 +103,7 @@ Add the <code>$doCheck</code> hook to your component which will fire anytime the
  <span class="p">});</span></code></pre></figure>
 
 <p>3.
-You can still technically add <code>$scope.$watch</code> to your $onInit method, but this is a bad solution. <code>$scope.$watch</code> is not apart of Angular 2 and relying on it is counter-productive to component-based architecture and any upgrade strategy.</p>
+You can still technically add <code>$scope.$watch</code> to your <code>$onInit</code> method, but this is a bad solution. <code>$scope.$watch</code> is not apart of Angular 2 and relying on it is counter-productive to <a href="https://github.com/toddmotto/angular-1-5-components-app">component-based architecture</a> and any <a href="https://angular.io/docs/ts/latest/guide/upgrade.html">upgrade strategy</a>.</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"> <span class="nx">angular</span>
    <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">)</span>
@@ -127,10 +127,10 @@ You can still technically add <code>$scope.$watch</code> to your $onInit method,
 
 <h2 id="why-onchanges-does-not-do-deep-watches">Why $onChanges does not do deep watches</h2>
 
-<p>This is <a href="https://github.com/angular/angular.js/issues/14378#issuecomment-207351242">by design</a></p>
+<p>This is <a href="https://github.com/angular/angular.js/issues/14378#issuecomment-207351242">by design</a>:</p>
 
 <blockquote>
-  <p>This is indeed intended. It would be too expensive to check each object deeply for changes. Besides, in most cases, where bindings are used in a template, an “internal” change will automatically update the view.If you want to account for “deep” changes, you need to manually $watch the object.</p>
+  <p>This is indeed intended. It would be too expensive to check each object deeply for changes. Besides, in most cases, where bindings are used in a template, an “internal” change will automatically update the view. If you want to account for “deep” changes, you need to manually $watch the object.</p>
 </blockquote>
 
 <h2 id="further-reading">Further Reading</h2>

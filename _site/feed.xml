@@ -10,11 +10,11 @@
         <title>$onChanges &amp; Deep Watches</title>
         <description>&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
 
-&lt;p&gt;&lt;code&gt;$onChanges&lt;/code&gt; will not fire just because a bindable object changes. If you need to know every time the object changes, you will have to pass in a new/copied version of the object, or use &lt;code&gt;$doCheck&lt;/code&gt;. &lt;a href=&quot;http://plnkr.co/edit/rJZdWgOhwqSkz3spg3TS?p=preview&quot;&gt;Here is a live example on plnkr&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$onChanges&lt;/code&gt; will not fire just because a bindable object changes. If you need to know every time the object changes, you will have to pass in a new/copied version of the object, or use &lt;code&gt;$doCheck&lt;/code&gt;. &lt;a href=&quot;http://plnkr.co/edit/rJZdWgOhwqSkz3spg3TS?p=preview&quot;&gt;Here is a live example on plnkr.co&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;the-problem&quot;&gt;The Problem&lt;/h2&gt;
 
-&lt;p&gt;Image we have a data object that gets passed into a child component:&lt;/p&gt;
+&lt;p&gt;Imagine we have a data object that gets passed into a child component:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$ctrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -31,7 +31,7 @@
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Whenever the &lt;code&gt;color&lt;/code&gt; property changes, we want to run a funtion. The problem is that the &lt;code&gt;$onChanges&lt;/code&gt; event will not fire because the object itself has not changed.&lt;/p&gt;
+&lt;p&gt;Whenever the &lt;code&gt;color&lt;/code&gt; property changes, we want to run a function. The problem is that the &lt;code&gt;$onChanges&lt;/code&gt; event will not fire because the object itself has not changed.&lt;/p&gt;
 
 &lt;h2 id=&quot;three-possible-solutions&quot;&gt;Three Possible Solutions&lt;/h2&gt;
 
@@ -55,7 +55,7 @@ Add the &lt;code&gt;$doCheck&lt;/code&gt; hook to your component which will fire
  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;3.
-You can still technically add &lt;code&gt;$scope.$watch&lt;/code&gt; to your $onInit method, but this is a bad solution. &lt;code&gt;$scope.$watch&lt;/code&gt; is not apart of Angular 2 and relying on it is counter-productive to component-based architecture and any upgrade strategy.&lt;/p&gt;
+You can still technically add &lt;code&gt;$scope.$watch&lt;/code&gt; to your &lt;code&gt;$onInit&lt;/code&gt; method, but this is a bad solution. &lt;code&gt;$scope.$watch&lt;/code&gt; is not apart of Angular 2 and relying on it is counter-productive to &lt;a href=&quot;https://github.com/toddmotto/angular-1-5-components-app&quot;&gt;component-based architecture&lt;/a&gt; and any &lt;a href=&quot;https://angular.io/docs/ts/latest/guide/upgrade.html&quot;&gt;upgrade strategy&lt;/a&gt;.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt; &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;
    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;app&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -79,10 +79,10 @@ You can still technically add &lt;code&gt;$scope.$watch&lt;/code&gt; to your $on
 
 &lt;h2 id=&quot;why-onchanges-does-not-do-deep-watches&quot;&gt;Why $onChanges does not do deep watches&lt;/h2&gt;
 
-&lt;p&gt;This is &lt;a href=&quot;https://github.com/angular/angular.js/issues/14378#issuecomment-207351242&quot;&gt;by design&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This is &lt;a href=&quot;https://github.com/angular/angular.js/issues/14378#issuecomment-207351242&quot;&gt;by design&lt;/a&gt;:&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;This is indeed intended. It would be too expensive to check each object deeply for changes. Besides, in most cases, where bindings are used in a template, an “internal” change will automatically update the view.If you want to account for “deep” changes, you need to manually $watch the object.&lt;/p&gt;
+  &lt;p&gt;This is indeed intended. It would be too expensive to check each object deeply for changes. Besides, in most cases, where bindings are used in a template, an “internal” change will automatically update the view. If you want to account for “deep” changes, you need to manually $watch the object.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;further-reading&quot;&gt;Further Reading&lt;/h2&gt;
