@@ -4,7 +4,6 @@ title:      $onChanges & Deep Watches
 date:       2016-11-04
 summary:    Understanding the limitations of $onChanges
 comments:   true
-hidden:     true
 categories: angular, components
 ---
 
