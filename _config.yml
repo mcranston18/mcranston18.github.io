@@ -7,12 +7,11 @@ url: "http://mcranston18.github.io"
 google_analytics:
 animated: false
 show_related_posts: false
-highlighter: pygments
 
 # Build settings
 markdown: kramdown
 permalink: /:title/
-highlighter: pygments
+highlighter: rouge
 paginate: 40
 paginate_path: blog/:num
 
