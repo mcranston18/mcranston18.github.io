@@ -60,14 +60,14 @@
 
 <p>Imagine you have an Angular service:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">&#39;UserService&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$http</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">'UserService'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$http</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">{</span>
-    <span class="nx">getProfile</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;profile.json&#39;</span><span class="p">);</span>
+    <span class="na">getProfile</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'profile.json'</span><span class="p">);</span>
     <span class="p">},</span>
 
-    <span class="nx">getAccount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;account_details.json&#39;</span><span class="p">);</span>
+    <span class="na">getAccount</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'account_details.json'</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">});</span></code></pre></figure>
@@ -77,31 +77,31 @@
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$stateProvider</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="nx">$stateProvider</span>
-    <span class="p">.</span><span class="nx">state</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="p">{</span>
-      <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
-      <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;template.html&#39;</span>
+    <span class="p">.</span><span class="nx">state</span><span class="p">(</span><span class="s1">'main'</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">url</span><span class="p">:</span> <span class="s1">'/'</span><span class="p">,</span>
+      <span class="na">templateUrl</span><span class="p">:</span> <span class="s1">'template.html'</span>
     <span class="p">});</span>
 <span class="p">});</span></code></pre></figure>
 
-<p>Now, you want to write a simple unit test that ensures both methods on your service actually make a <code>GET</code> request.</p>
+<p>Now, you want to write a simple unit test that ensures both methods on your service actually make a <code class="highlighter-rouge">GET</code> request.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="s1">&#39;userService.getAccount should make a GET call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="s1">'userService.getAccount should make a GET call'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">userService</span><span class="p">.</span><span class="nx">getAccount</span><span class="p">();</span>
-  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">expectGET</span><span class="p">(</span><span class="s1">&#39;account_details.json&#39;</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;a response&#39;</span><span class="p">);</span>
+  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">expectGET</span><span class="p">(</span><span class="s1">'account_details.json'</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">'a response'</span><span class="p">);</span>
   <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
 <span class="p">});</span>
 
-<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;userService.getProfile should make a GET call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="nx">it</span><span class="p">(</span><span class="s1">'userService.getProfile should make a GET call'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">userService</span><span class="p">.</span><span class="nx">getProfile</span><span class="p">();</span>
-  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">expectGET</span><span class="p">(</span><span class="s1">&#39;profile.json&#39;</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;a response&#39;</span><span class="p">);</span>
+  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">expectGET</span><span class="p">(</span><span class="s1">'profile.json'</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">'a response'</span><span class="p">);</span>
   <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
 <span class="p">});</span></code></pre></figure>
 
 <p>This will fail. You will see the following:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">My</span> <span class="nx">Service</span> <span class="nx">userService</span><span class="p">.</span><span class="nx">getAccount</span> <span class="nx">should</span> <span class="nx">make</span> <span class="nx">a</span> <span class="nx">GET</span> <span class="nx">call</span><span class="p">.</span>
-<span class="nb">Error</span><span class="o">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="o">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span> <span class="nx">Expected</span> <span class="nx">GET</span> <span class="nx">account_details</span><span class="p">.</span><span class="nx">json</span>
-<span class="nb">Error</span><span class="o">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="o">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span>
+<span class="nl">Error</span><span class="p">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="err">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span> <span class="nx">Expected</span> <span class="nx">GET</span> <span class="nx">account_details</span><span class="p">.</span><span class="nx">json</span>
+<span class="nl">Error</span><span class="p">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="err">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span>
 <span class="nx">Expected</span> <span class="nx">GET</span> <span class="nx">account_details</span><span class="p">.</span><span class="nx">json</span></code></pre></figure>
 
 <p>This confused me. Why was $httpBackend trying to fetch the template on our main route?</p>
@@ -112,37 +112,37 @@
   <p>Request expectations provide a way to make assertions about requests made by the application and to define responses for those requests. The test will fail if the expected requests are not made or they are made in the wrong order.</p>
 </blockquote>
 
-<p>“Wrong order”. Angular’s $httpBackend service expected <code>template.html</code> as the first $http request, yet the unit test expects the <code>account_details.json</code> request to be the first.</p>
+<p>“Wrong order”. Angular’s $httpBackend service expected <code class="highlighter-rouge">template.html</code> as the first $http request, yet the unit test expects the <code class="highlighter-rouge">account_details.json</code> request to be the first.</p>
 
 <p><img src="/assets/images/are_you_kidding.jpg" alt="Are you kidding me?" /></p>
 
-<p>So this means, we need to satisfy the <code>GET</code> for <code>template.html</code> before we run our tests.</p>
+<p>So this means, we need to satisfy the <code class="highlighter-rouge">GET</code> for <code class="highlighter-rouge">template.html</code> before we run our tests.</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">beforeEach</span><span class="p">(</span><span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_$httpBackend_</span><span class="p">,</span> <span class="nx">UserService</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">httpBackend</span> <span class="o">=</span> <span class="nx">_$httpBackend_</span><span class="p">;</span>
-  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="sr">/.html*/</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+  <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="sr">/.html*/</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">''</span><span class="p">);</span>
   <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
 <span class="p">}));</span></code></pre></figure>
 
 <p>Here’s the problem with the approach above. What if we have a resolve on our main app route as well?</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="sr">/.html*/</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
-<span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="s1">&#39;some_resolve_url&#39;</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="sr">/.html*/</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">''</span><span class="p">);</span>
+<span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="s1">'some_resolve_url'</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">''</span><span class="p">);</span>
 <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span></code></pre></figure>
 
 <p>Do we really want to have this in every test file when we need to test $http?</p>
 
-<p>My solution was to create a <code>helpers.js</code> file that lives in the testing folder. I create a global called <code>utils</code>:</p>
+<p>My solution was to create a <code class="highlighter-rouge">helpers.js</code> file that lives in the testing folder. I create a global called <code class="highlighter-rouge">utils</code>:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">utils</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">appInitResolve</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">httpBackend</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="sr">/.html*/</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
-    <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="s1">&#39;some_resolve_url&#39;</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+  <span class="na">appInitResolve</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">httpBackend</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="sr">/.html*/</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">''</span><span class="p">);</span>
+    <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">whenGET</span><span class="p">(</span><span class="s1">'some_resolve_url'</span><span class="p">).</span><span class="nx">respond</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s1">''</span><span class="p">);</span>
     <span class="nx">httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
   <span class="p">}</span>
 <span class="p">};</span></code></pre></figure>
 
-<p>Now in each <code>beforeEach</code>, I call <code>utils.appInitResolve(httpBackend)</code>. Now if our resolve considerations change, we can update them in one file rather than crowd all the beforeEach blocks.</p>
+<p>Now in each <code class="highlighter-rouge">beforeEach</code>, I call <code class="highlighter-rouge">utils.appInitResolve(httpBackend)</code>. Now if our resolve considerations change, we can update them in one file rather than crowd all the beforeEach blocks.</p>
 
   </article>
 

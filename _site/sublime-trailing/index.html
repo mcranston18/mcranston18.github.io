@@ -58,20 +58,20 @@
   <article class="post-content">
     <p>Trailing white spaces are <a href="http://programmers.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal">annoying</a>. Forunately, SublimeText automates this for us by simpling adding this options to our Sublime config:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">&quot;trim_trailing_white_space_on_save&quot;</span><span class="o">:</span> <span class="kc">true</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">"trim_trailing_white_space_on_save"</span><span class="err">:</span> <span class="kc">true</span></code></pre></figure>
 
 <p>Except we are screwed if we use a templating language. Because whitespace will be trimmed in nested element which means you won’t have a space between words. (Without littering your Jade with .)</p>
 
 <p>Thanks to StackOverflow user <a href="http://stackoverflow.com/questions/26510798/trailing-white-spaces-only-for-javascript-files-in-sublime-text/26512398#26512398">myk-willis</a>, there’s a solution:</p>
 
 <ol>
-  <li>Add <code>trim_trailing_white_space_on_save</code> to your Sublime user config (presuming you want this as your default).</li>
+  <li>Add <code class="highlighter-rouge">trim_trailing_white_space_on_save</code> to your Sublime user config (presuming you want this as your default).</li>
   <li>Open a file-type where you do not want non-breaking spaces (i.e. Jade).</li>
-  <li>Go to <code>Preferences &gt; Settings-More &gt; Syntax Specific</code> and allow trailing spaces for that specific syntax:</li>
+  <li>Go to <code class="highlighter-rouge">Preferences &gt; Settings-More &gt; Syntax Specific</code> and allow trailing spaces for that specific syntax:</li>
 </ol>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-<span class="s2">&quot;trim_trailing_white_space_on_save&quot;</span><span class="o">:</span> <span class="kc">false</span>
+<span class="s2">"trim_trailing_white_space_on_save"</span><span class="err">:</span> <span class="kc">false</span>
 <span class="p">}</span></code></pre></figure>
 
 

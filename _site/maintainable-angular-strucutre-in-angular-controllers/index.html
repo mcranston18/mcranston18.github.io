@@ -61,7 +61,7 @@
 <ol>
   <li>Initialization values
     <ul>
-      <li>assigning your variables and items on <code>$scope</code></li>
+      <li>assigning your variables and items on <code class="highlighter-rouge">$scope</code></li>
     </ul>
   </li>
   <li>Private methods that are only used in the controller</li>
@@ -70,7 +70,7 @@
   <li>$watches</li>
   <li>Getting data for the view
     <ul>
-      <li>call a <code>get</code> request to populate the view with data on initialization</li>
+      <li>call a <code class="highlighter-rouge">get</code> request to populate the view with data on initialization</li>
     </ul>
   </li>
   <li>(hacks)
@@ -80,7 +80,7 @@
   </li>
 </ol>
 
-<p>Let’s imagine a photo editing application, and the route at <code>/photo/123/edit</code>. This page would need to do the following:</p>
+<p>Let’s imagine a photo editing application, and the route at <code class="highlighter-rouge">/photo/123/edit</code>. This page would need to do the following:</p>
 
 <ol>
   <li>Fetch the photo from the API</li>
@@ -93,67 +93,67 @@
 
 <p>I would imagine the controller looking something like this:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app.photo&#39;</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'app.photo'</span><span class="p">)</span>
 
-<span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;EditPhotoCtrl&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">PhotoService</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'EditPhotoCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">PhotoService</span><span class="p">)</span> <span class="p">{</span>
 
-  <span class="cm">/*</span>
-<span class="cm">   * Init Values</span>
-<span class="cm">   */</span>
+  <span class="cm">/*
+   * Init Values
+   */</span>
 
   <span class="kd">var</span> <span class="nx">ctrl</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">something</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">;</span>
+  <span class="nx">$scope</span><span class="p">.</span><span class="nx">something</span> <span class="o">=</span> <span class="s1">'blue'</span><span class="p">;</span>
   <span class="nx">$scope</span><span class="p">.</span><span class="nx">isPremiumSubscriber</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 
-  <span class="cm">/*</span>
-<span class="cm">   * Private Methods</span>
-<span class="cm">   */</span>
+  <span class="cm">/*
+   * Private Methods
+   */</span>
 
   <span class="nx">ctrl</span><span class="p">.</span><span class="nx">_resizePhoto</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
   
-  <span class="cm">/*</span>
-<span class="cm">   * Methods Used in View</span>
-<span class="cm">   */</span>
+  <span class="cm">/*
+   * Methods Used in View
+   */</span>
   
   <span class="nx">ctrl</span><span class="p">.</span><span class="nx">showSomething</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
   <span class="nx">ctrl</span><span class="p">.</span><span class="nx">resetForm</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
 
-  <span class="cm">/*</span>
-<span class="cm">   * CRUD</span>
-<span class="cm">   */</span>
+  <span class="cm">/*
+   * CRUD
+   */</span>
 
   <span class="nx">ctrl</span><span class="p">.</span><span class="nx">getPhoto</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">$scope</span><span class="p">.</span><span class="nx">photo</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
     <span class="p">},</span>
 
-    <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">$scope</span><span class="p">.</span><span class="nx">error</span> <span class="o">=</span> <span class="nx">error</span><span class="p">;</span>
     <span class="p">},</span>
 
-    <span class="nx">invoke</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">photoId</span><span class="p">)</span> <span class="p">{</span>
+    <span class="na">invoke</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">photoId</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">PhotoService</span><span class="p">.</span><span class="nx">getPhoto</span><span class="p">(</span><span class="nx">photoId</span><span class="p">)</span>
         <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">success</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">};</span>
    
   <span class="nx">ctrl</span><span class="p">.</span><span class="nx">updatePhoto</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">$scope</span><span class="p">.</span><span class="nx">photo</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
       <span class="nx">$scope</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-      <span class="nx">$location</span><span class="p">.</span><span class="nx">path</span><span class="p">(</span><span class="s1">&#39;/photo/&#39;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">photo</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+      <span class="nx">$location</span><span class="p">.</span><span class="nx">path</span><span class="p">(</span><span class="s1">'/photo/'</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">photo</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
     <span class="p">},</span>
 
-    <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">$scope</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">},</span>
     
-    <span class="nx">createFormData</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="na">createFormData</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
       <span class="c1">// this func would create and return HTML5 formdata for multi-part upload</span>
       <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
     <span class="p">},</span>
 
-    <span class="nx">invoke</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">photo</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="na">invoke</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">photo</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">$scope</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
       <span class="kd">var</span> <span class="nx">formData</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createFormData</span><span class="p">(</span><span class="nx">photo</span><span class="p">);</span>
 
@@ -162,17 +162,17 @@
     <span class="p">}</span>
   <span class="p">};</span>
   
-  <span class="cm">/*</span>
-<span class="cm">   * Get Data for View</span>
-<span class="cm">   */</span>
+  <span class="cm">/*
+   * Get Data for View
+   */</span>
   
   <span class="nx">ctrl</span><span class="p">.</span><span class="nx">getPhoto</span><span class="p">.</span><span class="nx">invoke</span><span class="p">();</span>
 
-  <span class="cm">/*</span>
-<span class="cm">   * Watches</span>
-<span class="cm">   */</span>
+  <span class="cm">/*
+   * Watches
+   */</span>
   
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;something&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+  <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">'something'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
 
 <span class="p">});</span></code></pre></figure>
 

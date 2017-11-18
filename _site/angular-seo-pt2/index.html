@@ -59,9 +59,9 @@
     <p>After <a href="/angular-seo-pt1/">realizing that Googlebot was not actually indexing our single page app</a>, we decided to try to whip up a very quick server side solution:</p>
 
 <ol>
-  <li>use <a href="https://github.com/cburgdorf/grunt-html-snapshot">grunt-html-snapshot</a> to generate static pages that are put in a <code>/static/snapshots/</code> folder in django</li>
+  <li>use <a href="https://github.com/cburgdorf/grunt-html-snapshot">grunt-html-snapshot</a> to generate static pages that are put in a <code class="highlighter-rouge">/static/snapshots/</code> folder in django</li>
   <li>nginx detects for a crawler,</li>
-  <li>if detected, maintain the same file path, but preprend with the <code>/static/snapshots/</code> route
+  <li>if detected, maintain the same file path, but preprend with the <code class="highlighter-rouge">/static/snapshots/</code> route
     <ul>
       <li>i.e. example.com/about -&gt; example.com/static/snapshots/about</li>
     </ul>
