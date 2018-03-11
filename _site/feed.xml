@@ -7,6 +7,61 @@
     <atom:link href="http://mcranston18.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>How Sequelize Serializes Objects</title>
+        <description>&lt;p&gt;When retrieiving data from Sequelize, you don’t get a javascript object representing your data, &lt;a href=&quot;http://docs.sequelizejs.com/manual/tutorial/models-usage.html#data-retrieval-finders&quot;&gt;you get a javascript object representing a model instance&lt;/a&gt;.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://giphy.com/embed/3osxY4r5ejQcR123eM&quot; width=&quot;480&quot; height=&quot;270&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;This confused me. So I began tracing how a Sequelize model instance becomes JSON for a front end to consume. Here are the steps:&lt;/p&gt;
+
+&lt;p&gt;1.
+Sequelize retrieves a record from the database and returns a javascript object (i.e. a model instance) representing that data.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;movie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Movie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;findById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;1234&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;movie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// {&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//   dataValues:{&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//     name: &#39;Ladybird&#39;,&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//     created_at: 2016-02-08T19:46:08.303Z&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//   },&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//   _changed: {},&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//   _modelOptions: {},&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//   _options: {}},&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//   __eagerlyLoadedAssociations: [],&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//   isNewRecord: false,&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//   toJSON: function() {&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//     // return JSON representation of instance&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//   }&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// }&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;2.
+ExpressJS sends the model instance back with &lt;code class=&quot;highlighter-rouge&quot;&gt;res.send&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;movie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Movie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;findById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;1234&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;movie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;By calling &lt;code class=&quot;highlighter-rouge&quot;&gt;.send&lt;/code&gt;, Express starts serialization:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;.send&lt;/code&gt; method calls &lt;code class=&quot;highlighter-rouge&quot;&gt;JSON.stringify(instance)&lt;/code&gt; with Sequelize model instance &lt;a href=&quot;https://github.com/expressjs/express/blob/master/lib/response.js#L1114-L1134&quot;&gt;(Reference)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;JSON.stringify()&lt;/code&gt; then checks to see if the object being stringified has a funtion named &lt;code class=&quot;highlighter-rouge&quot;&gt;toJSON&lt;/code&gt;. If it does, it will stringify the return value of that function. If not, it will stringify the plain object being passed. &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior&quot;&gt;(Reference)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Since each Sequelize instance has a &lt;code class=&quot;highlighter-rouge&quot;&gt;toJSON&lt;/code&gt; method, the final object being returned to the user is the result of that method &lt;a href=&quot;https://github.com/sequelize/sequelize/blob/master/lib/model.js#L4100-L4106&quot;&gt;(Reference)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This means if you ever want to add custom properties to your return value, you will need to add those values to a raw javascript object:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Movie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;findById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;1234&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;movie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// {name: &#39;Ladybird&#39;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;movie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extraProperty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;1234&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;movie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Tue, 04 Jul 2017 00:00:00 -0400</pubDate>
+        <link>http://mcranston18.github.io/how-does-sequelize-serialize-objects/</link>
+        <guid isPermaLink="true">http://mcranston18.github.io/how-does-sequelize-serialize-objects/</guid>
+      </item>
+    
+      <item>
         <title>A Timer class to profile methods in Node JS</title>
         <description>&lt;p&gt;A simple node &lt;code class=&quot;highlighter-rouge&quot;&gt;Timer&lt;/code&gt; class so you can easily tell how long it takes for a method to complete:&lt;/p&gt;
 
@@ -440,32 +495,6 @@ You can still technically add &lt;code class=&quot;highlighter-rouge&quot;&gt;$s
         <pubDate>Mon, 03 Nov 2014 00:00:00 -0500</pubDate>
         <link>http://mcranston18.github.io/gulp-sever/</link>
         <guid isPermaLink="true">http://mcranston18.github.io/gulp-sever/</guid>
-      </item>
-    
-      <item>
-        <title>SublimeText - Conditionally Removing Trailing Spaces</title>
-        <description>&lt;p&gt;Trailing white spaces are &lt;a href=&quot;http://programmers.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal&quot;&gt;annoying&lt;/a&gt;. Forunately, SublimeText automates this for us by simpling adding this options to our Sublime config:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;trim_trailing_white_space_on_save&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Except we are screwed if we use a templating language. Because whitespace will be trimmed in nested element which means you won’t have a space between words. (Without littering your Jade with .)&lt;/p&gt;
-
-&lt;p&gt;Thanks to StackOverflow user &lt;a href=&quot;http://stackoverflow.com/questions/26510798/trailing-white-spaces-only-for-javascript-files-in-sublime-text/26512398#26512398&quot;&gt;myk-willis&lt;/a&gt;, there’s a solution:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Add &lt;code class=&quot;highlighter-rouge&quot;&gt;trim_trailing_white_space_on_save&lt;/code&gt; to your Sublime user config (presuming you want this as your default).&lt;/li&gt;
-  &lt;li&gt;Open a file-type where you do not want non-breaking spaces (i.e. Jade).&lt;/li&gt;
-  &lt;li&gt;Go to &lt;code class=&quot;highlighter-rouge&quot;&gt;Preferences &amp;gt; Settings-More &amp;gt; Syntax Specific&lt;/code&gt; and allow trailing spaces for that specific syntax:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;&quot;trim_trailing_white_space_on_save&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-</description>
-        <pubDate>Wed, 22 Oct 2014 00:00:00 -0400</pubDate>
-        <link>http://mcranston18.github.io/sublime-trailing/</link>
-        <guid isPermaLink="true">http://mcranston18.github.io/sublime-trailing/</guid>
       </item>
     
   </channel>
