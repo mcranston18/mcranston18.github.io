@@ -48,12 +48,14 @@ res.status(200).send(movie);
 By calling `.send`, Express starts serialization:
 
 - The `.send` method calls `JSON.stringify(instance)` with Sequelize model instance [(Reference)](https://github.com/expressjs/express/blob/master/lib/response.js#L1114-L1134)
-- `JSON.stringify()` then checks to see if the object being stringified has a funtion named `toJSON`. If it does, it will stringify the return value of that function. If not, it will stringify the plain object being passed. [(Reference)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior)
+- `JSON.stringify()` then checks to see if the object being stringified has a function named `toJSON`. If it does, it will stringify the return value of that function. If not, it will stringify the plain object being passed. [(Reference)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior)
 - Since each Sequelize instance has a `toJSON` method, the final object being returned to the user is the result of that method [(Reference)](https://github.com/sequelize/sequelize/blob/master/lib/model.js#L4100-L4106)
 
-This means if you ever want to add custom properties to your return value, you will need to add those values to a raw javascript object:
+This means if you ever want to add custom properties to your return value, you will need to add those values to a raw javascript object, not the instance itself:
+
 {% highlight javascript %}
 const instance = await Movie.findById('1234');
+instane.newProp = '1234'; // this does nothing
 const movie = instance.get(); // {name: 'Ladybird'}
 movie.extraProperty = '1234';
 res.status(200).send(movie);

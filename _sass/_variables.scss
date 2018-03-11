@@ -4,11 +4,15 @@ $tablet: "only screen and (min-width: 40.063rem)";
 $max-title-width: 700px;
 $max-post-width: 700px;
 
+$spacing: 1.2rem;
+
+
 // colors
+$text-color: #333;
 $lightest: #F4F5F0;
 $light: darken($lightest, 2%);
 $grey-light:  #A5A5A8;
 $grey: #797A7E;
 $darkest: #2A2B29;
 $dark: #393B3A;
-$code: $darkest;
+$code: #333;

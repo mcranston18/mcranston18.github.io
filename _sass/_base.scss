@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Karma');
+
 * {
   margin: 0;
   padding: 0;
@@ -9,12 +11,13 @@ html, body {
 }
 
 body {
-  font-family: Georgia, serif;
+  font-family: 'Karma', serif;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: none;
   background-color: $lightest;
   margin: 0.55rem;
   line-height: 1.8;
+  color: $text-color;
 
   @media #{$tablet} {
     margin: 2.2rem;
@@ -41,12 +44,11 @@ img {
 }
 
 header {
-  margin-bottom: 2.5rem;
+  margin-bottom: $spacing * 2.5;
 }
 
-p {
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
+p, iframe, div {
+  margin-bottom: $spacing;
 }
 
 .home {
@@ -54,14 +56,20 @@ p {
 }
 
 ul, ol {
-  padding-left: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0rem;
+  padding-bottom: $spacing;
+  padding-left: $spacing;
+  margin-left: $spacing;
+
+  li {
+    margin-bottom: $spacing / 2;
+  }
 }
 
 .site-name {
   font-size: 150%;
-  margin-bottom: 1rem;
+  margin-bottom: $spacing;
+
   @media #{$tablet} {
     float: left;
     font-size: 100%;
@@ -73,4 +81,24 @@ ul, ol {
   @media #{$tablet} {
     float: right;
   }
+}
+
+code {
+  display: inline-block;
+  border: none;
+  background-color: #ddd;
+}
+
+.highlight pre, .highlight code {
+  background-color: $code !important;
+  color: white;
+}
+
+.highlight pre, .highlight code {
+  display: block;
+  padding: $spacing / 2;
+}
+
+code {
+  padding: 1px 0.4rem;
 }

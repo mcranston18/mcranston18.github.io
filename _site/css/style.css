@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Karma");
 .float-left {
   float: left; }
 
@@ -20,12 +21,13 @@ html, body {
   font-size: 18px; }
 
 body {
-  font-family: Georgia, serif;
+  font-family: 'Karma', serif;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: none;
   background-color: #F4F5F0;
   margin: 0.55rem;
-  line-height: 1.8; }
+  line-height: 1.8;
+  color: #333; }
   @media only screen and (min-width: 40.063rem) {
     body {
       margin: 2.2rem;
@@ -46,23 +48,25 @@ img {
   width: 100%; }
 
 header {
-  margin-bottom: 2.5rem; }
+  margin-bottom: 3rem; }
 
-p {
-  margin-bottom: 0.75rem;
-  line-height: 1.4; }
+p, iframe, div {
+  margin-bottom: 1.2rem; }
 
 .home {
   max-width: 500px; }
 
 ul, ol {
-  padding-left: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem; }
+  padding-top: 0rem;
+  padding-bottom: 1.2rem;
+  padding-left: 1.2rem;
+  margin-left: 1.2rem; }
+  ul li, ol li {
+    margin-bottom: 0.6rem; }
 
 .site-name {
   font-size: 150%;
-  margin-bottom: 1rem; }
+  margin-bottom: 1.2rem; }
   @media only screen and (min-width: 40.063rem) {
     .site-name {
       float: left;
@@ -73,36 +77,52 @@ ul, ol {
   .site-nav {
     float: right; } }
 
+code {
+  display: inline-block;
+  border: none;
+  background-color: #ddd; }
+
+.highlight pre, .highlight code {
+  background-color: #333 !important;
+  color: white; }
+
+.highlight pre, .highlight code {
+  display: block;
+  padding: 0.6rem; }
+
+code {
+  padding: 1px 0.4rem; }
+
 .post {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
+  margin-bottom: 2.4rem;
+  padding-bottom: 2.4rem;
   border-bottom: 1px solid #E5E4DE; }
   .post .measure {
     max-width: 700px;
     margin: auto; }
   .post .post-header {
-    margin: 1rem 0 2rem; }
+    margin: 1.2rem 0 2.4rem; }
     .post .post-header h1 {
       line-height: 1;
       font-weight: 300; }
   .post h2 {
     font-size: 125%;
     font-weight: bold;
-    margin-bottom: 0.5rem; }
+    margin-bottom: 1.2rem; }
   .post .py2 {
     font-weight: bold;
     font-weight: normal;
     font-size: 150%;
-    margin: 1rem auto; }
+    margin: 1.2rem auto; }
   .post .post-content {
     line-height: 1.8;
-    margin-top: 1.5rem; }
+    margin-top: 1.8rem; }
   .post #disqus_thread {
     line-height: 1.8;
-    margin-top: 1.5rem; }
+    margin-top: 1.8rem; }
   .post .post-meta {
     opacity: 0.7;
-    margin-bottom: 0.5rem; }
+    margin-bottom: 1.2rem; }
   .post .post-summary {
     opacity: 0.7; }
   .post blockquote {
@@ -110,22 +130,7 @@ ul, ol {
     padding-left: 1.5rem;
     opacity: .8;
     font-style: italic;
-    margin: 2rem 0; }
-  .post ul, .post ol {
-    padding-left: 1.5rem;
-    margin-left: 1.35rem; }
-  .post code {
-    display: inline-block;
-    border: none;
-    background-color: #ddd; }
-  .post .highlight pre, .post .highlight code {
-    background-color: #2A2B29 !important;
-    color: white; }
-  .post .highlight pre, .post .highlight code {
-    display: block;
-    padding: 0.3rem 0.5rem; }
-  .post code {
-    padding: 1px 0.4rem; }
+    margin: 2.4rem 0; }
   .post:last-child {
     border-bottom: 0; }
 
@@ -136,7 +141,7 @@ code {
 .highlight {
   display: block;
   overflow: auto;
-  margin: 1rem 0; }
+  margin: 1.2rem 0; }
 
 .highlight .c {
   color: #999988;
@@ -145,7 +150,7 @@ code {
 /* Comment */
 .highlight .err {
   color: #a61717;
-  background-color: #e3d2d2; }
+  background-color: #333; }
 
 /* Error */
 .highlight .k {
