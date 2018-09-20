@@ -9,7 +9,7 @@
     <meta name="description" content="Fix to Gulp crashing when using httpProxy">
     <meta name="author" content="Michael Cranston">
     <meta name="keywords" content="gulp">
-    <link rel="canonical" href="http://mcranston18.github.io/gulp-sever/">
+    <link rel="canonical" href="http://localhost:4000/gulp-sever/">
     <link rel=icon href="/assets/images/favicon.png?v=2" sizes="16x16" type="image/png">
 
     <!-- Custom CSS -->
@@ -26,7 +26,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Gulp - Fix to socket hang up using httpProxy">
     <meta property="og:description" content="">
-    <meta property="og:url" content="http://mcranston18.github.io/gulp-sever/">
+    <meta property="og:url" content="http://localhost:4000/gulp-sever/">
     <meta property="og:site_name" content="Michael Cranston">
 </head>
 
@@ -58,12 +58,12 @@
   <article class="post-content">
     <p>If you use the <a href="http://yeoman.io">Yeoman</a> Gulp generator, you might be getting an incredibly frustrating socket hang up anytime an HTTP request fails or is interrupted.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">Error</span><span class="err">:</span> <span class="nx">socket</span> <span class="nx">hang</span> <span class="nx">up</span>
-    <span class="nx">at</span> <span class="nx">createHangUpError</span> <span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">js</span><span class="err">:</span><span class="mi">1472</span><span class="err">:</span><span class="mi">15</span><span class="p">)</span>
-    <span class="nx">at</span> <span class="nx">CleartextStream</span><span class="p">.</span><span class="nx">socketCloseListener</span> <span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">js</span><span class="err">:</span><span class="mi">1522</span><span class="err">:</span><span class="mi">23</span><span class="p">)</span>
-    <span class="nx">at</span> <span class="nx">CleartextStream</span><span class="p">.</span><span class="nx">emit</span> <span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">js</span><span class="err">:</span><span class="mi">95</span><span class="err">:</span><span class="mi">17</span><span class="p">)</span>
-    <span class="nx">at</span> <span class="nx">tls</span><span class="p">.</span><span class="nx">js</span><span class="err">:</span><span class="mi">693</span><span class="err">:</span><span class="mi">10</span>
-    <span class="nx">at</span> <span class="nx">process</span><span class="p">.</span><span class="nx">_tickCallback</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">js</span><span class="err">:</span><span class="mi">419</span><span class="err">:</span><span class="mi">13</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">Error</span><span class="p">:</span> <span class="nx">socket</span> <span class="nx">hang</span> <span class="nx">up</span>
+    <span class="nx">at</span> <span class="nx">createHangUpError</span> <span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">js</span><span class="p">:</span><span class="mi">1472</span><span class="p">:</span><span class="mi">15</span><span class="p">)</span>
+    <span class="nx">at</span> <span class="nx">CleartextStream</span><span class="p">.</span><span class="nx">socketCloseListener</span> <span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">js</span><span class="p">:</span><span class="mi">1522</span><span class="p">:</span><span class="mi">23</span><span class="p">)</span>
+    <span class="nx">at</span> <span class="nx">CleartextStream</span><span class="p">.</span><span class="nx">emit</span> <span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">js</span><span class="p">:</span><span class="mi">95</span><span class="p">:</span><span class="mi">17</span><span class="p">)</span>
+    <span class="nx">at</span> <span class="nx">tls</span><span class="p">.</span><span class="nx">js</span><span class="p">:</span><span class="mi">693</span><span class="p">:</span><span class="mi">10</span>
+    <span class="nx">at</span> <span class="nx">process</span><span class="p">.</span><span class="nx">_tickCallback</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">js</span><span class="p">:</span><span class="mi">419</span><span class="p">:</span><span class="mi">13</span><span class="p">)</span></code></pre></figure>
 
 <p>Adding simple error handling to your httpProxy will disallow the hangup and keep your sanity in check:</p>
 

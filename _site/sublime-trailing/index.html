@@ -9,7 +9,7 @@
     <meta name="description" content="A fix so Sublime does not remove trailing white spaces in your templating engine.">
     <meta name="author" content="Michael Cranston">
     <meta name="keywords" content="sublime, text">
-    <link rel="canonical" href="http://mcranston18.github.io/sublime-trailing/">
+    <link rel="canonical" href="http://localhost:4000/sublime-trailing/">
     <link rel=icon href="/assets/images/favicon.png?v=2" sizes="16x16" type="image/png">
 
     <!-- Custom CSS -->
@@ -26,7 +26,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="SublimeText - Conditionally Removing Trailing Spaces">
     <meta property="og:description" content="">
-    <meta property="og:url" content="http://mcranston18.github.io/sublime-trailing/">
+    <meta property="og:url" content="http://localhost:4000/sublime-trailing/">
     <meta property="og:site_name" content="Michael Cranston">
 </head>
 
@@ -58,7 +58,7 @@
   <article class="post-content">
     <p>Trailing white spaces are <a href="http://programmers.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal">annoying</a>. Forunately, SublimeText automates this for us by simpling adding this options to our Sublime config:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">"trim_trailing_white_space_on_save"</span><span class="err">:</span> <span class="kc">true</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">"trim_trailing_white_space_on_save"</span><span class="p">:</span> <span class="kc">true</span></code></pre></figure>
 
 <p>Except we are screwed if we use a templating language. Because whitespace will be trimmed in nested element which means you won’t have a space between words. (Without littering your Jade with .)</p>
 
@@ -71,7 +71,7 @@
 </ol>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-<span class="s2">"trim_trailing_white_space_on_save"</span><span class="err">:</span> <span class="kc">false</span>
+<span class="s2">"trim_trailing_white_space_on_save"</span><span class="p">:</span> <span class="kc">false</span>
 <span class="p">}</span></code></pre></figure>
 
 

@@ -9,7 +9,7 @@
     <meta name="description" content="Just use prerender.io">
     <meta name="author" content="Michael Cranston">
     <meta name="keywords" content="seo,, angular">
-    <link rel="canonical" href="http://mcranston18.github.io/angular-seo-pt3-copy/">
+    <link rel="canonical" href="http://localhost:4000/angular-seo-pt3-copy/">
     <link rel=icon href="/assets/images/favicon.png?v=2" sizes="16x16" type="image/png">
 
     <!-- Custom CSS -->
@@ -26,7 +26,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Angular and SEO - What Worked (Pt. 3)">
     <meta property="og:description" content="">
-    <meta property="og:url" content="http://mcranston18.github.io/angular-seo-pt3-copy/">
+    <meta property="og:url" content="http://localhost:4000/angular-seo-pt3-copy/">
     <meta property="og:site_name" content="Michael Cranston">
 </head>
 
@@ -68,9 +68,9 @@
 <p>First off, it took about four lines of code:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">prerender</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'prerender-node'</span><span class="p">);</span>
-<span class="nx">prerender</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'protocol'</span><span class="p">,</span> <span class="s1">'https'</span><span class="p">);</span>
-<span class="nx">prerender</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'host'</span><span class="p">,</span> <span class="s1">'&lt;host&gt;'</span><span class="p">);</span>
-<span class="nx">prerender</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'prerenderToken'</span><span class="p">,</span> <span class="s1">'&lt;token&gt;'</span><span class="p">);</span></code></pre></figure>
+<span class="nx">prerender</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'protocol'</span><span class="p">,</span> <span class="s1">'https'</span><span class="p">);</span>
+<span class="nx">prerender</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'host'</span><span class="p">,</span> <span class="s1">'&lt;host&gt;'</span><span class="p">);</span>
+<span class="nx">prerender</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'prerenderToken'</span><span class="p">,</span> <span class="s1">'&lt;token&gt;'</span><span class="p">);</span></code></pre></figure>
 
 <p>Secondly, we saw our entire site indexed by Google within about a week. Prerender worked easily and instantly.</p>
 

@@ -9,7 +9,7 @@
     <meta name="description" content="How Sequelize class instances get serialized in Express">
     <meta name="author" content="Michael Cranston">
     <meta name="keywords" content="node, js,, sequelize">
-    <link rel="canonical" href="http://mcranston18.github.io/how-does-sequelize-serialize-objects/">
+    <link rel="canonical" href="http://localhost:4000/how-does-sequelize-serialize-objects/">
     <link rel=icon href="/assets/images/favicon.png?v=2" sizes="16x16" type="image/png">
 
     <!-- Custom CSS -->
@@ -26,7 +26,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="How Sequelize Serializes Objects">
     <meta property="og:description" content="">
-    <meta property="og:url" content="http://mcranston18.github.io/how-does-sequelize-serialize-objects/">
+    <meta property="og:url" content="http://localhost:4000/how-does-sequelize-serialize-objects/">
     <meta property="og:site_name" content="Michael Cranston">
 </head>
 
@@ -65,7 +65,7 @@
 <p>1.
 Sequelize retrieves a record from the database and returns a javascript object (i.e. a model instance) representing that data.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">movie</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">Movie</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">movie</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">Movie</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">movie</span><span class="p">);</span>
 <span class="c1">// {</span>
 <span class="c1">//   dataValues:{</span>
@@ -85,7 +85,7 @@ Sequelize retrieves a record from the database and returns a javascript object (
 <p>2.
 ExpressJS sends the model instance back with <code class="highlighter-rouge">res.send</code>:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">movie</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">Movie</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">movie</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">Movie</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
 <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">movie</span><span class="p">);</span></code></pre></figure>
 
 <p>By calling <code class="highlighter-rouge">.send</code>, Express starts serialization:</p>
@@ -98,9 +98,9 @@ ExpressJS sends the model instance back with <code class="highlighter-rouge">res
 
 <p>This means if you ever want to add custom properties to your return value, you will need to add those values to a raw javascript object, not the instance itself:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">Movie</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">instance</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">Movie</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
 <span class="nx">instane</span><span class="p">.</span><span class="nx">newProp</span> <span class="o">=</span> <span class="s1">'1234'</span><span class="p">;</span> <span class="c1">// this does nothing</span>
-<span class="kr">const</span> <span class="nx">movie</span> <span class="o">=</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span> <span class="c1">// {name: 'Ladybird'}</span>
+<span class="kd">const</span> <span class="nx">movie</span> <span class="o">=</span> <span class="nx">instance</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span> <span class="c1">// {name: 'Ladybird'}</span>
 <span class="nx">movie</span><span class="p">.</span><span class="nx">extraProperty</span> <span class="o">=</span> <span class="s1">'1234'</span><span class="p">;</span>
 <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">movie</span><span class="p">);</span></code></pre></figure>
 

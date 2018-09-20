@@ -9,7 +9,7 @@
     <meta name="description" content="Account for all $http methods when unit testing">
     <meta name="author" content="Michael Cranston">
     <meta name="keywords" content="angular,, testing">
-    <link rel="canonical" href="http://mcranston18.github.io/angular-http-testing-gotchas/">
+    <link rel="canonical" href="http://localhost:4000/angular-http-testing-gotchas/">
     <link rel=icon href="/assets/images/favicon.png?v=2" sizes="16x16" type="image/png">
 
     <!-- Custom CSS -->
@@ -26,7 +26,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Angular $httpBackend Testing Gotchas">
     <meta property="og:description" content="">
-    <meta property="og:url" content="http://mcranston18.github.io/angular-http-testing-gotchas/">
+    <meta property="og:url" content="http://localhost:4000/angular-http-testing-gotchas/">
     <meta property="og:site_name" content="Michael Cranston">
 </head>
 
@@ -63,11 +63,11 @@
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">'UserService'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$http</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">{</span>
     <span class="na">getProfile</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'profile.json'</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'profile.json'</span><span class="p">);</span>
     <span class="p">},</span>
 
     <span class="na">getAccount</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'account_details.json'</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">$http</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'account_details.json'</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">});</span></code></pre></figure>
@@ -100,8 +100,8 @@
 <p>This will fail. You will see the following:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">My</span> <span class="nx">Service</span> <span class="nx">userService</span><span class="p">.</span><span class="nx">getAccount</span> <span class="nx">should</span> <span class="nx">make</span> <span class="nx">a</span> <span class="nx">GET</span> <span class="nx">call</span><span class="p">.</span>
-<span class="nl">Error</span><span class="p">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="err">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span> <span class="nx">Expected</span> <span class="nx">GET</span> <span class="nx">account_details</span><span class="p">.</span><span class="nx">json</span>
-<span class="nl">Error</span><span class="p">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="err">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span>
+<span class="nb">Error</span><span class="p">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="p">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span> <span class="nx">Expected</span> <span class="nx">GET</span> <span class="nx">account_details</span><span class="p">.</span><span class="nx">json</span>
+<span class="nb">Error</span><span class="p">:</span> <span class="nx">Unexpected</span> <span class="nx">request</span><span class="p">:</span> <span class="nx">GET</span> <span class="nx">template</span><span class="p">.</span><span class="nx">html</span>
 <span class="nx">Expected</span> <span class="nx">GET</span> <span class="nx">account_details</span><span class="p">.</span><span class="nx">json</span></code></pre></figure>
 
 <p>This confused me. Why was $httpBackend trying to fetch the template on our main route?</p>

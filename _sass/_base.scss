@@ -52,7 +52,8 @@ p, iframe, div {
 }
 
 .home {
-  max-width: 500px;
+  max-width: $max-post-width;
+  margin: auto;
 }
 
 ul, ol {
